@@ -59,7 +59,7 @@ $ ./key.sh hosts.ini
 ##  Installing MOSIP 
 ### Site settings
 In `group_vars/all.yml`, set the following: 
-* Change `sandbox_domain_name`  to domain name of the console machine.
+* Change `sandbox_domain_name`  to domain name of the console machine (e.g. `name.region.cloudapp.azure.com`)
 * By default the installation scripts will try to obtain fresh SSL certificate for the above domain from [Letsencrypt](https://letsencrypt.org). However, If you already have the same then set the following variables in `group_vars/all.yml` file:
 ```
 ssl:
@@ -68,16 +68,16 @@ ssl:
   certificate: <certificate dir>
   certificate_key: <private key path> 
 ```
-* Set **private ip** address of `mzworker0.sb` and `dmzworker0.sb` in `group_vars/all.yml`:
+* Set **private ip** address of `mzworker0` and `dmzworker0` in `group_vars/all.yml`:
 
 ```
 clusters:
   mz:
-    any_node_ip: '<mzworker0.sb ip>'
+    any_node_ip: '<mzworker0 ip>'
 
 clusters:
   dmz:
-    any_node_ip: '<dmzworker0.sb ip>'
+    any_node_ip: '<dmzworker0 ip>'
 ```
 ### Network interface
 If your cluster machines use network interface other than "eth0", update it in `group_vars/mzcluster.yml` and `group_vars/dmzcluster.yml`:
@@ -110,6 +110,10 @@ or with shortcut command
 ```
 $ an site.yml
 ```
+
+Note that you may have unreachable errors for mzworkers3 -> mzworkers8. These can be ignored.
+
+**YOU SHOULD NOW HAVE INSTALLED MOSIP**
 
 ## Dashboards
 The links to various dashboards are available at 
