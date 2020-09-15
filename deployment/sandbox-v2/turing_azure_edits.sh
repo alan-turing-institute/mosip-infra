@@ -23,12 +23,16 @@ echo "updated domain name"
 read -p "Azure Region (Title Case): " region
 regionlc=${region// /} #remove whitespace
 regionlc=$(echo "$regionlc" | tr A-Z a-z) #convert to lowercase
-LC_CTYPE=C find ./ -type f -exec sed -i "" "s/South India/$region/g" {} +
-LC_CTYPE=C find ./ -type f -exec sed -i "" "s/southindia/$regionlc/g" {} +
+LC_CTYPE=C find ./ -type f -exec sed -i "" "s/My Region/$region/g" {} +
+LC_CTYPE=C find ./ -type f -exec sed -i "" "s/myregion/$regionlc/g" {} +
 
 echo "Changed all hardcoded title case and lowercase region entries"
 
-#STEP 3 -delete unwanted file extentions from everything. NOTE will have to reset repo if want to deploy aws.
-LC_CTYPE=C find ./ -type f -exec sed -i "" "s/'.sb'//g" {} +
+#STEP 3 -delete unwanted file extensions from the desired files
+sed -i "" "s/.sb//g" hosts.ini
+sed -i "" "s/.sb//g" ./group_vars/mzcluster.yml
+sed -i "" "s/.sb//g" ./group_vars/dmzcluster.yml
+sed -i "" "s/.sb//g" ./playbooks/mzcluster.yml
+sed -i "" "s/.sb//g" ./playbooks/dmzcluster.yml
 
 echo "deleted unwanted file extensions"
