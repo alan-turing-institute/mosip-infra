@@ -2,45 +2,36 @@
 
 ## Introduction
 
-The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.  The sandbox may be used for development and testing.
+The sandbox runs on a multi Virtual Machine (VM) setup, and may be used for development and testing.
 
 _**WARNING**: The sandbox is not intented to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data._
+
+_NB: In this fork The Alan Turing Institute have tweaked the installation instructions to improve clarity after deploying MOSIP using Azure. If you are deploying MOSIP using aws then you may want to follow the instructions in the original repository._ 
+
+There are two broad phases to installing the sandbox:
+
+1) Deploying the infrastructure using Terraform instructions found [here](https://github.com/mosip/mosip-infra/tree/master/deployment/sandbox-v2/terraform/azure). These instructions will setup the VMs, which consists of a main _Console_ machine and additional workers. 
+
+2) Installing MOSIP on the Console machine. 
+
+For reference, the sandbox architecture is depicted below:
 
 ## Sandbox architecture
 ![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sandbox_architecture.png)
 
-## OS
-**CentOS 7.8** on all machines.
+# Setting up the Sandbox Architecture
 
-## Hardware setup 
+First we build the infrastructure. Begin on the local machine. Please follow the [Terraform instructions](https://github.com/mosip/mosip-infra/tree/master/deployment/sandbox-v2/terraform/azure) before progressing. 
 
-The sandbox has been tested with the following configuration:
+After create the VMs, the last action is to share keys amongst all the hosts for password-less login. 
 
-| Component| Number of VMs| Configuration| Persistence |
-|---|---|---|---|
-|Console| 1 | 4 VCPU*, 8 GB RAM | 128 GB SSD |
-|K8s MZ master | 1 | 4 VCPU, 8 GB RAM | - |
-|K8s MZ workers | 9 | 4 VCPU, 16 GB RAM | - |
-|K8s DMZ master | 1 | 4 VCPU, 8 GB RAM | - |
-|K8s DMZ workers | 1 | 4 VCPU, 16 GB RAM | - |
+* ssh onto the console vm using the password that you have specified in `/terraform/azure/variables.tf`
+```
+$ ssh domainname
+```
 
-\* VCPU:  Virtual CPU
+The Console machine should have ansible and git installed as part of the deployment (see `/terraform/azure/console.sh`). So you can probably safely skip to connecting cloning the repository below. If ansible and/or git are not installed follow the relevant instruction below:
 
-All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
-
-## VM setup
-### All machines
-All machines need to have the following:
-* User 'mosipuser' with strong password. Same password on all machines.
-* Password-less `sudo su`.
-* Internet connectivity.
-* Accessible from console via hostnames defined in `hosts.ini`.  
-* `firewalld` disabled.
-
-### Console 
-Console machine is the machine from where you run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not 'root').   
-* Console machine must be accessible with public domain name (e.g. sandbox.mycompany.com).
-* Port 80, 443, 30090 (for postgres) must be open on the console for external access.
 * Install Ansible
 ```
 $ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
@@ -50,16 +41,20 @@ $ sudo yum install ansible
 ```
 $ sudo yum install -y git
 ```
+
 * Git clone this repo in user home directory.
+
 ```
 $ cd ~/
 $ git clone https://github.com/mosip/mosip-infra
 $ cd mosip-infra/deployment/sandbox-v2
-```
+``` 
+
 * Exchange ssh keys with all machines. Provide the password for 'mosipuser'.
 ```
 $ ./key.sh hosts.ini
 ``` 
+ 
 
 ##  Installing MOSIP 
 ### Site settings
