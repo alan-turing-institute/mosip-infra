@@ -34,5 +34,6 @@ sed -i "" "s/.sb//g" ./group_vars/mzcluster.yml
 sed -i "" "s/.sb//g" ./group_vars/dmzcluster.yml
 sed -i "" "s/.sb//g" ./playbooks/mzcluster.yml
 sed -i "" "s/.sb//g" ./playbooks/dmzcluster.yml
+sed -i "" "s/.sb//g" ./group_vars/all.yml
 
 echo "deleted unwanted file extensions"
