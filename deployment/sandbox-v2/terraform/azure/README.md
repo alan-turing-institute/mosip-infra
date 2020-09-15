@@ -84,11 +84,11 @@ There are a number of hardcoded variables in the MOSIP repository that need alte
 
 We have provided a script to automate the above changes. You can find it in `mosip-infra/deployment/sandbox-v2/turing_azure_edits.sh`.
 
-The script will prompt for user input specifying:
-    - Azure subscription ID
-    - admin password
-    - domain name label (Azure DNS name)
-    - Azure region (in Title Case).
+The script will prompt for user input specifying:   
+    - Azure subscription ID.  
+    - admin password.  
+    - domain name label (Azure DNS name).  
+    - Azure region (in Title Case).   
 
 If you have made a typo, you should be able to run the script again specifying the correct variable. 
 
