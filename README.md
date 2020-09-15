@@ -4,3 +4,4 @@
 
 This repository contains various scripts and procedures to deploy [MOSIP](https://mosipdocs.gitbook.io/platform) in various environments - developer, sandbox, production.
 
+To install the sandbox environment follow the instructions [here](https://github.com/alan-turing-institute/mosip-infra/tree/master/deployment/sandbox-v2).
