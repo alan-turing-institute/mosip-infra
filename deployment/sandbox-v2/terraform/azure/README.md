@@ -127,7 +127,7 @@ You can now progress to step 4.
  5. Run **terraform apply** command. If the instrastructre code is tweaked appropriately, `terraform apply` should create a resource group on azure with 30 records. 
  
  
-**YOU CAN NOW RETURN TO THE MOSIP INSTALLATION INSTRUCTIONS [HERE](https://github.com/mosip/mosip-infra/tree/master/deployment/sandbox-v2).**
+**YOU CAN NOW RETURN TO THE MOSIP INSTALLATION INSTRUCTIONS [HERE](https://github.com/alan-turing-institute/mosip-infra/tree/master/deployment/sandbox-v2).**
 
 The below text is additional information that the Turing has left unchanged.
 
