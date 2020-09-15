@@ -63,7 +63,7 @@ Generally, terraform communicates azure portal to create the resources through A
   
 ### Step 3: Edit MOSIP files to allow for Azure Terraform deployment
 
-There are a number of hardcoded variables in the MOSIP repository that need altering to your requires. For understanding we will step through the manual alterations. However, we also provide a script provided a script, `turing_azure_edits.sh`, that automates the process, so you can skip ahead if you would rather (recommended). The steps to manually alter the files are as follows:
+There are a number of hardcoded variables in the MOSIP repository that need altering to your requirements. For understanding we will step through the manual alterations. However, we also provide a script provided a script, `turing_azure_edits.sh`, that automates the process, so you can skip ahead if you would rather (recommended). The steps to manually alter the files are as follows:
 
 
 #### Manual
@@ -217,7 +217,6 @@ The below steps are carried out through Terraform scripts.
 **Step 4 –** Finally, connect to your remote Linux server with ssh using this pem key.
 
 **ssh -i server1.pem ubuntu@ipaddress**
-
 
 
 
