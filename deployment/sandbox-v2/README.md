@@ -19,7 +19,7 @@ For reference, the sandbox architecture is depicted below:
 ## Sandbox architecture
 ![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sandbox_architecture.png)
 
-# Setting up the Sandbox Architecture
+# Setting up the Sandbox Architecture on Azure
 
 First we build the infrastructure. Begin on the local machine. Please follow the [Terraform instructions](https://github.com/alan-turing-institute/mosip-infra/tree/master/deployment/sandbox-v2/terraform/azure) before progressing any further. 
 
