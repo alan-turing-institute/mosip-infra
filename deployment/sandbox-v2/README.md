@@ -10,7 +10,7 @@ _NB: In this fork The Alan Turing Institute have tweaked the installation instru
 
 There are two broad phases to installing the sandbox:
 
-1) Deploying the infrastructure using Terraform instructions found [here](https://github.com/mosip/mosip-infra/tree/master/deployment/sandbox-v2/terraform/azure). These instructions will setup the VMs, which consists of a main _Console_ machine and additional workers. 
+1) Deploying the infrastructure using Terraform instructions found [here](https://github.com/alan-turing-institute/mosip-infra/tree/callummole-updatedocs/deployment/sandbox-v2/terraform/azure). These instructions will setup the VMs, which consists of a main _Console_ machine and additional workers. 
 
 2) Installing MOSIP on the Console machine. 
 
@@ -21,9 +21,9 @@ For reference, the sandbox architecture is depicted below:
 
 # Setting up the Sandbox Architecture on Azure
 
-First we build the infrastructure. Begin on the local machine. Please follow the [Terraform instructions](https://github.com/alan-turing-institute/mosip-infra/tree/master/deployment/sandbox-v2/terraform/azure) before progressing any further. 
+First we build the infrastructure. Begin on the local machine. Please follow the [Terraform instructions](https://github.com/alan-turing-institute/mosip-infra/tree/callummole-updatedocs/deployment/sandbox-v2/terraform/azure) before progressing any further. 
 
-We assume that you have created the VMs using the [Terraform instructions](https://github.com/alan-turing-institute/mosip-infra/tree/master/deployment/sandbox-v2/terraform/azure). The last action before installing MOSIP is to share keys amongst all the hosts for password-less login. 
+We assume that you have created the VMs using the [Terraform instructions](https://github.com/alan-turing-institute/mosip-infra/tree/callummole-updatedocs/deployment/sandbox-v2/terraform/azure). The last action before installing MOSIP is to share keys amongst all the hosts for password-less login. 
 
 * ssh onto the console vm using the password that you have specified in `/terraform/azure/variables.tf`
 ```
