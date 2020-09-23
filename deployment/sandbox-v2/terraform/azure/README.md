@@ -1,14 +1,16 @@
-## MOSIP Terraform Script-7 VM Setup
+## MOSIP Terraform Script for VM Setup
 ### Introduction
 We are using terraform script to create desired environment.
-### How does it work?
+
+These instructions will take you through installing Terraform and Azure CLI, then it will describe how to edit the MOSIP files in order for terraform to deploy the environment correctly. 
+
+### How does terraform work?
  Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Which works as Infrastructure as code (IAC).
 
 Generally, terraform communicates azure portal to create the resources through Azure CLI is interface of Terraform and Azure Portal.
                                                      
 <img width="388" alt="terraform" src="https://user-images.githubusercontent.com/58170816/84351992-19113600-abda-11ea-9bec-b555e79d228e.PNG">
-                                                    
-                                                        
+                                                                                                     
                                       
 ### Pre-requisites:
 1.	Terraform utility
@@ -57,24 +59,79 @@ Generally, terraform communicates azure portal to create the resources through A
 ### 2.	Azure CLI installation for Linux
 
   **curl -L https://aka.ms/InstallAzureCli | bash**
+  
+  
+### Step 3: Edit MOSIP files to allow for Azure Terraform deployment
 
- 3.	Once the **Azure CLI** is installed, enter **az login** command will provide a **URl and code** to authenticate with your account.
+There are a number of hardcoded variables in the MOSIP repository that need altering to your requirements. For understanding we will step through the manual alterations. However, we also provide a script provided a script, `turing_azure_edits.sh`, that automates the process, so you can skip ahead if you would rather (recommended). The steps to manually alter the files are as follows:
+
+
+#### Manual
+- Terraform automatically picks up inputs from `variables.tf` to deploy the infrastructure. Some variables will need updating to your setup:
+    - Azure subscription ID
+    - admin password
+    - domain name label (Azure DNS name)
+    - NB: the Azure resource group name must *not* already exist.
+
+- In addition to the above changes to `variables.tf`, we need to make sure all resources are pointing to the same region. The location is specified in multiple files and in different ways. Take the following steps:
+    - In `variables.tf` change `location` to your azure region (e.g. from `"South India"` to `"UK South"`). Note the string syntax as Title Case instead of lowercase (e.g. `"southindia"`). 
+    - For each resource in `vm.tf`, `nic.tf`, and `vnet.tf`, there is a `location` field. This is often hardcoded as `"southindia"`. All instances should be set to `location = var.location` or your azure region so it picks it up automatically from the variables file. The string case type at this step does not seem to matter since Azure recognises Title Case as Azure regions.
+    - In `vm.tf` each virtual machine resource has a field `connection {host = ${var.domain_name_label}.southindia.cloudapp.azure.com}`.  The host needs to be changed to our location so that all resources are consistent, but crucially at this stage the string case *needs to be lowercase*. To resolve the discrepancy we create a new variable in `variables.tf`: `variable "locationlc" {default = "uksouth"}`. This then enables us to insert the variable into all the host strings as follows: `connection{host = ${var.domain_name_label}.${var.locationlc}.cloudapp.azure.com`.
+
+- MOSIP have hardcoded many '.sb' extensions, which may be appropriate for aws but is not appropriate for azure. In `mosip-infra/deployment/sandbox-v2/hosts.ini`, `mosip-infra/deployment/sandbox-v2/group_vars/mzcluster.yml`, `mosip-infra/deployment/sanbox-v2/playbooks/mzcluster.yml`, `mosip-infra/deployment/sanbox-v2/group_vars/dmzcluster.yml`, and `mosip-infra/deployment/sandbox-v2/playbooks/dmzcluster.yml` we need to remove all '.sb' extensions.
+
+#### Automated
+
+We have provided a script to automate the above changes. You can find it in `mosip-infra/deployment/sandbox-v2/turing_azure_edits.sh`.
+
+The script will prompt for user input specifying:   
+    - Azure subscription ID.  
+    - admin password.  
+    - domain name label (Azure DNS name).  
+    - Azure region (in Title Case).   
+
+If you have made a typo, you should be able to run the script again specifying the correct variable. 
+
+To run, we assume you have the repository cloned. Since the file alters itself when it runs it's prudent to create a copy and run the copy instead:
+
+```
+$ cd ~
+$ cd mosip-infra/deployment/sandbox-v2
+$ cp ./turing_azure_edits.sh ./turing_azure_edits_copy.sh
+$ chmod u+x ./turing_azure_edits_copy.sh
+$ ./turing_azure_edits_copy.sh
+
+```     
+
+You can now progress to step 4.
+
+### Step 4: Run commands to deploy infrastructure.
+
+ 1.	Once the **Azure CLI** is installed, enter **az login** command will provide a **URl and code** to authenticate with your account.
 
  ![az-login](https://user-images.githubusercontent.com/58170816/84352663-5e823300-abdb-11ea-857d-239135f1e4ec.png)
 
- 4.	Once you authenticated, it will list all the subscription, which has granted access for your account.
+ 2.	Once you authenticated, it will list all the subscription, which has granted access for your account.
 
 ![subscription](https://user-images.githubusercontent.com/58170816/84352764-8bcee100-abdb-11ea-8a4c-9ba67db53443.png)
  
- 5.	After listed the subscription, we can enter **terraform init** command where terraform config modules are present. Which will download **all the latest plugins** for the terraform modules.
+ 3.	After listed the subscription, we can enter **terraform init** command where terraform config modules are present. Which will download **all the latest plugins** for the terraform modules.
 
  ![terraform-init](https://user-images.githubusercontent.com/58170816/84352814-a3a66500-abdb-11ea-8ada-c194a7ed2aa6.png)
 
-6.	If the **terraform plan** command is successfully listed, means, terraform is able to communicate with Azure portal.
+
+ 4.	Run **terraform plan** command. If details are is successfully listed as below, terraform is able to communicate with Azure portal. Note that there may be a syntax warning that can be safely ignored. 
 
  ![terraform-plan](https://user-images.githubusercontent.com/58170816/84352913-d05a7c80-abdb-11ea-8d96-f6b8fe9e97ca.png)
 
-### Step 3: Azure portal Access
+ 5. Run **terraform apply** command. If the instrastructre code is tweaked appropriately, `terraform apply` should create a resource group on azure with 30 records. 
+ 
+ 
+**YOU CAN NOW RETURN TO THE MOSIP INSTALLATION INSTRUCTIONS [HERE](https://github.com/alan-turing-institute/mosip-infra/tree/master/deployment/sandbox-v2).**
+
+The below text is additional information that the Turing has left unchanged.
+
+### Azure portal Access
 
 •	We at least should have contributor access.
 •	Using Subscription Id, we can create the resources.
@@ -160,7 +217,6 @@ The below steps are carried out through Terraform scripts.
 **Step 4 –** Finally, connect to your remote Linux server with ssh using this pem key.
 
 **ssh -i server1.pem ubuntu@ipaddress**
-
 
 
 

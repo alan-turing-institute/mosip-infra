@@ -10,7 +10,7 @@ _NB: In this fork The Alan Turing Institute have tweaked the installation instru
 
 There are two broad phases to installing the sandbox:
 
-1) Deploying the infrastructure using Terraform instructions found [here](https://github.com/mosip/mosip-infra/tree/master/deployment/sandbox-v2/terraform/azure). These instructions will setup the VMs, which consists of a main _Console_ machine and additional workers. 
+1) Deploying the infrastructure using Terraform instructions found [here](https://github.com/alan-turing-institute/mosip-infra/tree/callummole-updatedocs/deployment/sandbox-v2/terraform/azure). These instructions will setup the VMs, which consists of a main _Console_ machine and additional workers. 
 
 2) Installing MOSIP on the Console machine. 
 
@@ -21,9 +21,9 @@ For reference, the sandbox architecture is depicted below:
 
 # Setting up the Sandbox Architecture on Azure
 
-First we build the infrastructure. Begin on the local machine. Please follow the [Terraform instructions](https://github.com/mosip/mosip-infra/tree/master/deployment/sandbox-v2/terraform/azure) before progressing. 
+First we build the infrastructure. Begin on the local machine. Please follow the [Terraform instructions](https://github.com/alan-turing-institute/mosip-infra/tree/callummole-updatedocs/deployment/sandbox-v2/terraform/azure) before progressing any further. 
 
-After create the VMs, the last action is to share keys amongst all the hosts for password-less login. 
+We assume that you have created the VMs using the [Terraform instructions](https://github.com/alan-turing-institute/mosip-infra/tree/callummole-updatedocs/deployment/sandbox-v2/terraform/azure). The last action before installing MOSIP is to share keys amongst all the hosts for password-less login. 
 
 * ssh onto the console vm using the password that you have specified in `/terraform/azure/variables.tf`
 ```
@@ -59,7 +59,7 @@ $ ./key.sh hosts.ini
 ##  Installing MOSIP 
 ### Site settings
 In `group_vars/all.yml`, set the following: 
-* Change `sandbox_domain_name`  to domain name of the console machine.
+* Change `sandbox_domain_name`  to domain name of the console machine (e.g. `name.region.cloudapp.azure.com`)
 * By default the installation scripts will try to obtain fresh SSL certificate for the above domain from [Letsencrypt](https://letsencrypt.org). However, If you already have the same then set the following variables in `group_vars/all.yml` file:
 ```
 ssl:
@@ -68,16 +68,16 @@ ssl:
   certificate: <certificate dir>
   certificate_key: <private key path> 
 ```
-* Set **private ip** address of `mzworker0.sb` and `dmzworker0.sb` in `group_vars/all.yml`:
+* Set **private ip** address of `mzworker0` and `dmzworker0` in `group_vars/all.yml`:
 
 ```
 clusters:
   mz:
-    any_node_ip: '<mzworker0.sb ip>'
+    any_node_ip: '<mzworker0 ip>'
 
 clusters:
   dmz:
-    any_node_ip: '<dmzworker0.sb ip>'
+    any_node_ip: '<dmzworker0 ip>'
 ```
 ### Network interface
 If your cluster machines use network interface other than "eth0", update it in `group_vars/mzcluster.yml` and `group_vars/dmzcluster.yml`:
@@ -110,6 +110,10 @@ or with shortcut command
 ```
 $ an site.yml
 ```
+
+Note that you may have unreachable errors for mzworkers3 -> mzworkers8. These can be ignored.
+
+**YOU SHOULD NOW HAVE INSTALLED MOSIP**
 
 ## Dashboards
 The links to various dashboards are available at 

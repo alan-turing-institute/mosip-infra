@@ -5,7 +5,7 @@
 Configurations for all the modules are specified via property files located in `roles/config-repo/files/properties`.  Modify these files as below. Note that the changes here apply only during the inital install of MOSIP. For config changes post install refer to section [Post install configuration](#post-install-configuration).
 
 ### Captcha
-* Captcha is needed for Pre-Reg UI only. Obtain captcha for the sandbox domain from "Google Recaptcha Admin".  Get _reCAPTCHA v2 "I'm not a robot"_ keys. 
+* Captcha is needed for Pre-Reg UI only. Obtain captcha for the sandbox domain from "Google Recaptcha Admin".  Get _reCAPTCHA v2 "I'm not a robot"_ keys. Use 'azure.com' as the host domain name. Copy the sitekey and secret to the relevant properties below.
 * Set captcha:
   * File: `roles/config-repo/files/properties/pre-registration.mz.properties`
   * Properties:
