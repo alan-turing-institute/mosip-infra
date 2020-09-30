@@ -10,14 +10,14 @@ _NB: In this fork The Alan Turing Institute have tweaked the installation instru
 
 There are two broad phases to installing the sandbox:
 
-1) Deploying the infrastructure using Terraform instructions found [here](https://github.com/mosip/mosip-infra/tree/master/deployment/sandbox-v2/terraform/azure). These instructions will setup the VMs, which consists of a main _Console_ machine and additional workers. 
+1) Deploying the infrastructure using Terraform instructions found [here](https://github.com/alan-turing-institute/mosip-infra/tree/master/deployment/sandbox-v2/terraform/azure). These instructions will setup the VMs, which consists of a main _Console_ machine and additional workers. 
 
 2) Installing MOSIP on the Console machine. 
 
 For reference, the sandbox architecture is depicted below:
 
 ## Sandbox architecture
-![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sandbox_architecture.png)
+![](https://github.com/alan-turing-institute/mosip-infra/blob/master/deployment/sandbox-v2/docs/sandbox_architecture.png)
 
 # Setting up the Sandbox Architecture on Azure
 
@@ -46,7 +46,7 @@ $ sudo yum install -y git
 
 ```
 $ cd ~/
-$ git clone https://github.com/mosip/mosip-infra
+$ git clone https://github.com/alan-turing-institute/mosip-infra
 $ cd mosip-infra/deployment/sandbox-v2
 ``` 
 
