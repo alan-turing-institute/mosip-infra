@@ -21,7 +21,7 @@ For reference, the sandbox architecture is depicted below:
 
 # Setting up the Sandbox Architecture on Azure
 
-First we build the infrastructure. Begin on the local machine. Please follow the [Terraform instructions](https://github.com/mosip/mosip-infra/tree/master/deployment/sandbox-v2/terraform/azure) before progressing. 
+First we build the infrastructure. Begin on the local machine. Please follow the [Terraform instructions](https://github.com/alan-turing-institute/mosip-infra/tree/master/deployment/sandbox-v2/terraform/azure) before progressing. 
 
 After create the VMs, the last action is to share keys amongst all the hosts for password-less login. 
 
