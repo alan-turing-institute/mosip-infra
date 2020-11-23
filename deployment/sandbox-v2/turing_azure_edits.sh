@@ -18,12 +18,12 @@ sed -i "" "20s/Password@123/$adm/" ./terraform/azure/variables.tf
 echo "updated password to $adm"
 
 #read -p "Domain name label (Azure DNS name): " dns
-dns="configure"
+dns="sandbox"
 sed -i "" "12s/test-machine/$dns/" ./terraform/azure/variables.tf
 echo "updated domain name to $dns"
  
 #read -p "Domain name label (Azure DNS name): " dns
-rgroup="mosip-sandbox-updatedocs"
+rgroup="mosip-sandbox-test"
 sed -i "" "31s/test-today/$rgroup/" ./terraform/azure/variables.tf
 echo "updated resource group to $rgroup"
 
@@ -33,7 +33,7 @@ region="UK South"
 regionlc=${region// /} #remove whitespace
 regionlc=$(echo "$regionlc" | tr A-Z a-z) #convert to lowercase
 LC_CTYPE=C find ./ -type f -exec sed -i "" "s/South India/$region/g" {} +
-LC_CTYPE=C find ./ -type f -exec sed -i "" "s/uksouth/$regionlc/g" {} +
+LC_CTYPE=C find ./ -type f -exec sed -i "" "s/southindia/$regionlc/g" {} +
 
 echo "Changed all hardcoded title case and lowercase region entries to $region or $regionlc"
 
