@@ -2,7 +2,7 @@
 
 # for automated deployment of mosip infrastructure on a mac
 #pre-requisits
-echo "installing pre-requisites, terraform and azure-cli"
+echo "installing pre-requisites terraform and azure-cli"
 brew install terraform
 brew install azure-cli
 #hard-coded edits
@@ -19,4 +19,6 @@ echo "azure terraform deployment"
 az login
 cd terraform/azure
 terraform init
+terraform plan
+terraform apply
 
