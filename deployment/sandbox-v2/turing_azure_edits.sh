@@ -18,7 +18,7 @@ sed -i "" "20s/Password@123/$adm/" ./terraform/azure/variables.tf
 echo "updated password"
 
 #read -p "Domain name label (Azure DNS name): " dns
-dns="configure.uksouth.cloudapp.azure.com"
+dns="configure"
 sed -i "" "12s/test-machine/$dns/" ./terraform/azure/variables.tf
 echo "updated domain name"
  
