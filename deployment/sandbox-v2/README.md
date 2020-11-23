@@ -4,6 +4,15 @@
 
 The sandbox runs on a multi Virtual Machine (VM) setup, and may be used for development and testing.
 
+**REG TEAM:**
+This branch adjusts the documentation for the REG team to quickly deploy the infrastructure on macOS. 
+Quick deployment:
+- Make sure the hardcoded variables in `deployment/sandbox-v2/turing_azure_edits.sh` are correct. The dns name and the resource group should NOT EXIST before deployment.
+- Run `deployment/sandbox-v2/automated_MOSIP_deployment.sh` from your home directory. 
+- The last command of `deployment/sandbox-v2/automated_MOSIP_deployment.sh` is `terraform apply`. You'll likely encounter a [well known](https://github.com/terraform-providers/terraform-provider-azurerm/issues/532) Error:404 'Resource not found'. Re-run `terraform apply` in the directory `mosip-infra/deployment/sandbox-v2/terraform/azure` and it should work the second time.
+- Next, install mosip by running `deployment/sandbox-v2/install_MOSIP_vm.sh` (NOT WRITTEN YET)
+
+
 _**WARNING**: The sandbox is not intented to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data._
 
 _NB: In this fork The Alan Turing Institute have tweaked the installation instructions to improve clarity after deploying MOSIP using Azure. If you are deploying MOSIP using aws then you may want to follow the instructions in the original repository._ 

@@ -18,94 +18,24 @@ Generally, terraform communicates azure portal to create the resources through A
 3.	Azure Portal Access
 
 ### Step 1: Install Terraform
-1.	Create the directory with the following command: **mkdir terraform && cd terraform**
-2.	Then, download Terraform using this command: **wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip**
-3.	Install a program called ‘unzip’ in order to unpack the download by entering the following: **sudo yum install unzip**
-4.	Once installed, unpack the Terraform download: **unzip terraform_0.12.26_linux_amd64.zip**
-5.	Set the Linux path to point to Terraform with the following command: export **PATH=$PATH:$HOME/terraform**
-6.	Test that Terraform is installed by typing this command: **terraform –v**
-
- ![terraform-version](https://user-images.githubusercontent.com/58170816/84352547-2da1fe00-abdb-11ea-8336-8f15e21898e1.png)
- 
-7. Please verify, whether the latest **12.26 version** is installed. if not, use the below command to install **tfswitch**
-
-**sudo curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh | bash**
-
-8. use **tfswitch** command to install the latest
-
-<img width="369" alt="tfswitch" src="https://user-images.githubusercontent.com/58170816/84386299-b4240300-ac0e-11ea-98d7-215d84ea45f9.PNG">
-
-9. Install the lastet **tfswitch version** by selecting the latest and enter like below.
-
-<img width="361" alt="tfswitch-install" src="https://user-images.githubusercontent.com/58170816/84379398-5c33cf00-ac03-11ea-8cc2-cbeb12fca3df.PNG">
-
-7. you just check whether it is 12.26 version. if no, install this.
-
-**sudo curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh | bash**
-
-8. use **tfswitch** command to check the version like below
-
-<img width="369" alt="tfswitch" src="https://user-images.githubusercontent.com/58170816/84379078-e16ab400-ac02-11ea-8b93-7f8ee651d3af.PNG">
-
-9. select the latest one **12.26 version** and enter it will install with the latest one.
-
-<img width="361" alt="tfswitch-install" src="https://user-images.githubusercontent.com/58170816/84379398-5c33cf00-ac03-11ea-8cc2-cbeb12fca3df.PNG">
+- `$ brew install terraform`. 
 
 ### Step 2: Azure CLI installation
-### 1.	Azure CLI installation for Ubuntu
-       
-  **curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash**
-
-### 2.	Azure CLI installation for Linux
-
-  **curl -L https://aka.ms/InstallAzureCli | bash**
-  
+- `$ brew install azure-cli`.
   
 ### Step 3: Edit MOSIP files to allow for Azure Terraform deployment
 
-There are a number of hardcoded variables in the MOSIP repository that need altering to your requirements. For understanding we will step through the manual alterations. However, we also provide a script provided a script, `turing_azure_edits.sh`, that automates the process, so you can skip ahead if you would rather (recommended). The steps to manually alter the files are as follows:
+There are a number of hardcoded variables in the MOSIP repository that need altering to your requirements. The file `mosip-infra/deployment/sandbox-v2/turing_azure_edits.sh`.
 
-
-#### Manual
-- Terraform automatically picks up inputs from `variables.tf` to deploy the infrastructure. Some variables will need updating to your setup:
-    - Azure subscription ID
-    - admin password
-    - domain name label (Azure DNS name)
-    - NB: the Azure resource group name must *not* already exist.
-
-- In addition to the above changes to `variables.tf`, we need to make sure all resources are pointing to the same region. The location is specified in multiple files and in different ways. Take the following steps:
-    - In `variables.tf` change `location` to your azure region (e.g. from `"South India"` to `"UK South"`). Note the string syntax as Title Case instead of lowercase (e.g. `"southindia"`). 
-    - For each resource in `vm.tf`, `nic.tf`, and `vnet.tf`, there is a `location` field. This is often hardcoded as `"southindia"`. All instances should be set to `location = var.location` or your azure region so it picks it up automatically from the variables file. The string case type at this step does not seem to matter since Azure recognises Title Case as Azure regions.
-    - In `vm.tf` each virtual machine resource has a field `connection {host = ${var.domain_name_label}.southindia.cloudapp.azure.com}`.  The host needs to be changed to our location so that all resources are consistent, but crucially at this stage the string case *needs to be lowercase*. To resolve the discrepancy we create a new variable in `variables.tf`: `variable "locationlc" {default = "uksouth"}`. This then enables us to insert the variable into all the host strings as follows: `connection{host = ${var.domain_name_label}.${var.locationlc}.cloudapp.azure.com`.
-
-- MOSIP have hardcoded many '.sb' extensions, which may be appropriate for aws but is not appropriate for azure. In `mosip-infra/deployment/sandbox-v2/hosts.ini`, `mosip-infra/deployment/sandbox-v2/group_vars/mzcluster.yml`, `mosip-infra/deployment/sanbox-v2/playbooks/mzcluster.yml`, `mosip-infra/deployment/sanbox-v2/group_vars/dmzcluster.yml`, and `mosip-infra/deployment/sandbox-v2/playbooks/dmzcluster.yml` we need to remove all '.sb' extensions.
-
-#### Automated
-
-We have provided a script to automate the above changes. You can find it in `mosip-infra/deployment/sandbox-v2/turing_azure_edits.sh`.
-
-The script will prompt for user input specifying:   
+The script edits the following: 
     - Azure subscription ID.  
     - admin password.  
     - domain name label (Azure DNS name).  
-    - Azure region (in Title Case).   
-
-If you have made a typo, you should be able to run the script again specifying the correct variable. 
-
-To run, we assume you have the repository cloned. Since the file alters itself when it runs it's prudent to create a copy and run the copy instead:
-
-```
-$ cd ~
-$ cd mosip-infra/deployment/sandbox-v2
-$ cp ./turing_azure_edits.sh ./turing_azure_edits_copy.sh
-$ chmod u+x ./turing_azure_edits_copy.sh
-$ ./turing_azure_edits_copy.sh
-
-```     
-
-You can now progress to step 4.
+    - Azure region (in Title Case, e.g. UK South).   
 
 ### Step 4: Run commands to deploy infrastructure.
+
+`$ cd terraform/azure`.
 
  1.	Once the **Azure CLI** is installed, enter **az login** command will provide a **URl and code** to authenticate with your account.
 

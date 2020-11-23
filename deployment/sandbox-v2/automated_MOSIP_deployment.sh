@@ -21,4 +21,3 @@ cd terraform/azure
 terraform init
 terraform plan
 terraform apply
-
