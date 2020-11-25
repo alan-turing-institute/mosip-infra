@@ -15,7 +15,9 @@ cd deployment/sandbox-v2
 chmod u+x ./turing_azure_edits.sh
 ./turing_azure_edits.sh
 # azure terraform deployment
+chmod u+x ./edit_MOSIP_files.sh
 chmod u+x ./install_MOSIP_vm.sh
+chmod u+x ./run_on_vm.sh
 chmod u+x ./startup_vms.sh
 chmod u+x ./stop_vms.sh
 
@@ -26,3 +28,6 @@ terraform init
 terraform plan
 echo "RUNNING TERRAFORM APPLY, EXPECT ERROR 404 AND RUN AGAIN"
 terraform apply
+cd ../..
+./edit_MOSIP_files.sh
+./run_on_vm.sh
