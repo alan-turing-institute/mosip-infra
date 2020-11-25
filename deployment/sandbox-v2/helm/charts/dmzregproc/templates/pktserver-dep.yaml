@@ -2,25 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.services.pktserver.serviceName }} 
-  namespace: {{ .Values.namespace }} 
+  namespace: {{ .Release.Namespace }} 
   labels:
     app: {{ .Values.services.pktserver.serviceName }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.pktserver.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.pktserver.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.pktserver.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.pktserver.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.pktserver.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.pktserver.serviceName }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.pktserver.serviceName }} 
         image: {{ .Values.services.pktserver.dockerImage }}

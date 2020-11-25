@@ -1,9 +1,8 @@
-namespace: default
 serviceName: softhsm-{{hsm_prop.label}}
 
 activeProfileEnv: mz 
-springConfigLabel: master
-configServerUrl: http://config-server/config
+springConfigLabel: {{ config_repo.version }} 
+configServerUrl: {{ config_server.internal_url }}`
 artifactoryUrl: {{ artifactory_url }} 
 
 docker:

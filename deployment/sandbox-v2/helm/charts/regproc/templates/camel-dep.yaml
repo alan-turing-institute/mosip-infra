@@ -2,26 +2,28 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.services.camel.serviceName }} 
-  namespace: {{ .Values.namespace }} 
+  namespace: {{ .Release.Namespace }} 
   labels:
     app: {{ .Values.services.camel.serviceName }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.camel.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.camel.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.camel.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.camel.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.camel.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.camel.serviceName }} 
         component: service-hazelcast-server
+        exportLogs: {{ .Values.exportLogs }}
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.camel.serviceName }} 
         image: {{ .Values.services.camel.dockerImage }}
@@ -39,6 +41,8 @@ spec:
           value: secure 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
+        - name: mosipbox_public_url
+          value: {{ .Values.sitePublicUrl }}
         ports:
         - name: eventbus-port
           containerPort: {{ .Values.services.camel.ports.eventbusPort }}

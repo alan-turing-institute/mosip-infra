@@ -6,7 +6,7 @@
     kube_config: '{{clusters.mz.kube_config}}' 
     hsm_prop: '{{softhsm.keymanager}}'
 
-## Run all kernel services
+# Run all kernel services
 - hosts: console
   vars:
     kube_config: '{{clusters.mz.kube_config}}'
@@ -15,5 +15,7 @@
     is_template: true  
     helm_namespace: 'default'
     helm_values: '{{charts_root}}/kernel/values.template.j2'
+    helm_strings: ''
   roles:
     - {role:  helm}
+

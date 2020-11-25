@@ -69,8 +69,8 @@ http {
         proxy_buffers 8 16k;
         proxy_buffer_size 32k;  # This is needed to as responses may be huge
         client_max_body_size 8m; # Biometrics may there in the request.
-        ssl_certificate {{site.ssl.certificate}}; 
-        ssl_certificate_key {{site.ssl.certificate_key}}; 
+        ssl_certificate {{ ssl_certificate }};
+        ssl_certificate_key {{ ssl_certificate_key }};
         ssl_session_cache shared:SSL:1m;
         ssl_session_timeout  10m;
         ssl_ciphers HIGH:!aNULL:!MD5;
@@ -247,6 +247,41 @@ http {
 
         location /resident/v1/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/resident/v1/;
+        }
+
+        location /registration-client/ {
+           proxy_pass http://dmzworker0.sb:30080/registration-client/;
+        }
+        location /activemq/ {
+           proxy_pass http://mzworker0.sb:30080/activemq/;
+        }
+
+        location /commons/v1/packetmanager/ {
+           proxy_pass http://mzworker0.sb:30080/commons/v1/packetmanager/;
+        }
+
+        location /minio/ {
+           proxy_pass http://mzworker0.sb:30080/minio/;
+        }
+
+        location /v1/bioextractor/mock/ {
+           proxy_pass http://mzworker0.sb:30080/v1/bioextractor/mock/;
+        }
+
+        location /v1/credentialrequest/{
+           proxy_pass http://mzworker0.sb:30080/v1/credentialrequest/;
+        }
+
+        location /v1/credentialservice/{
+           proxy_pass http://mzworker0.sb:30080/v1/credentialservice/;
+        }
+
+        location /v1/datashare/ {
+           proxy_pass http://mzworker0.sb:30080/v1/datashare/;
+        }
+
+        location /v1/mosip-mock-service/ { 
+           proxy_pass http://mzworker0.sb:30080/v1/mosip-mock-service/;
         }
 
         error_page 404 /404.html;

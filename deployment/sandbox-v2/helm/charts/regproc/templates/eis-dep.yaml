@@ -2,25 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.services.eis.serviceName }} 
-  namespace: {{ .Values.namespace }} 
+  namespace: {{ .Release.Namespace }} 
   labels:
     app: {{ .Values.services.eis.serviceName }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.eis.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.eis.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.eis.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.eis.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.eis.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.eis.serviceName }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.eis.serviceName }} 
         image: {{ .Values.services.eis.dockerImage }}
@@ -36,6 +38,8 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
+        - name: mosipbox_public_url
+          value: {{ .Values.sitePublicUrl }}
         ports:
         - name: verticle-port
           containerPort: {{ .Values.services.eis.ports.containerPort }}

@@ -2,25 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.services.proxyabis.serviceName }} 
-  namespace: {{ .Values.namespace }} 
+  namespace: {{ .Release.Namespace }} 
   labels:
     app: {{ .Values.services.proxyabis.serviceName }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.proxyabis.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.proxyabis.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.proxyabis.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.proxyabis.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.proxyabis.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.proxyabis.serviceName }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.proxyabis.serviceName }} 
         image: {{ .Values.services.proxyabis.dockerImage }}
@@ -36,6 +38,8 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
+        - name: mosipbox_public_url
+          value: {{ .Values.sitePublicUrl }}
         ports:
         - name: verticle-port
           containerPort: {{ .Values.services.proxyabis.ports.containerPort }}

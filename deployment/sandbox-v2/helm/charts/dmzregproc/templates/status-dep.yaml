@@ -2,25 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.services.status.serviceName }} 
-  namespace: {{ .Values.namespace }} 
+  namespace: {{ .Release.Namespace }} 
   labels:
     app: {{ .Values.services.status.serviceName }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.status.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.status.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.status.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.status.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.status.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.status.serviceName }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.status.serviceName }} 
         image: {{ .Values.services.status.dockerImage }}
@@ -36,6 +38,8 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
         ports:
         - name: verticle-port
           containerPort: {{ .Values.services.status.ports.containerPort }}

@@ -9,7 +9,7 @@ volumeMounts:
 {{- define "logger.sidecar" }}
 - name: logger-sidecar
   image: busybox
-  args: [/bin/sh, -c, 'tail -F /logs/idrepo.log']
+  args: [/bin/sh, -c, 'tail -F /logs/id-repo.log']
   volumeMounts:
   - name: applogs
     mountPath: /logs
@@ -20,4 +20,12 @@ volumeMounts:
 volumes:
 - name: applogs
   emptyDir: {}
+{{- end }}
+
+{{/* Template for impagepull secrets */}}
+{{- define "dockerHubSecret" }}
+{{ if .Values.dockerHub.private }}
+imagePullSecrets:
+- name: {{ .Values.dockerHub.keyname }}
+{{ end }}
 {{- end }}

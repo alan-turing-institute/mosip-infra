@@ -1,9 +1,12 @@
 # MZ cluster
 - import_playbook: cluster.yml
   vars:
-    cluster: mzcluster
+    cluster: mzmaster mzworkers
     master: mzmaster.sb
     workers: mzworkers
+    cluster_name: mzcluster  # Any string
+    cluster_master: mzmaster.sb  # Host name of master machine. e.g: mzmaster.sb
+    console_kubeadmin_config_path: '{{clusters.mz.kube_config}}'
 
 # Ingress nginx controller
 - import_playbook: ingress-nginx.yml
@@ -19,4 +22,9 @@
     dashboard_conf: '{{clusters.mz.dashboard}}'
   roles:
     - {role: k8scluster/dashboard}
+
+# Load any secrets
+- import_playbook: docker-secrets.yml
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
 

@@ -2,27 +2,29 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.services.bio.serviceName }} 
-  namespace: {{ .Values.namespace }} 
+  namespace: {{ .Release.Namespace }} 
   labels:
     app: {{ .Values.services.bio.serviceName }}
     
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.bio.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.bio.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.bio.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.bio.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.bio.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.bio.serviceName }} 
         component: service-hazelcast-server
+        exportLogs: {{ .Values.exportLogs }}
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.bio.serviceName }} 
         image: {{ .Values.services.bio.dockerImage }}
@@ -38,6 +40,8 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
+        - name: mosipbox_public_url
+          value: {{ .Values.sitePublicUrl }}
         ports:
         - name: eventbus-port
           containerPort: {{ .Values.services.bio.ports.eventbusPort }}

@@ -2,28 +2,30 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.services.datasync.serviceName }} 
-  namespace: {{ .Values.namespace }} 
+  namespace: {{ .Release.Namespace }} 
   labels:
     app: {{ .Values.services.datasync.serviceName }}
     component: {{ .Values.component }} 
     
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.datasync.podconfig.replicas }} 
   selector:
     matchLabels:
       app: {{ .Values.services.datasync.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.datasync.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.datasync.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.datasync.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.datasync.serviceName }} 
         component: {{ .Values.component }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.datasync.serviceName }} 
         image: {{ .Values.services.datasync.dockerImage }}

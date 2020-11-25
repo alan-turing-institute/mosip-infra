@@ -2,28 +2,30 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.services.rid.serviceName }} 
-  namespace: {{ .Values.namespace }} 
+  namespace: {{ .Release.Namespace }} 
   labels:
     app: {{ .Values.services.rid.serviceName }}
     component: {{ .Values.component }} 
     
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.rid.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.rid.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.rid.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.rid.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.rid.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.rid.serviceName }} 
         component: {{ .Values.component }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.rid.serviceName }} 
         image: {{ .Values.services.rid.dockerImage }}
@@ -39,6 +41,8 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }} 
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
         ports:
         - containerPort: {{ .Values.services.rid.containerPort }}
         readinessProbe:

@@ -2,28 +2,30 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.services.prid.serviceName }} 
-  namespace: {{ .Values.namespace }} 
+  namespace: {{ .Release.Namespace }} 
   labels:
     app: {{ .Values.services.prid.serviceName }}
     component: {{ .Values.component }} 
     
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.prid.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.prid.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.prid.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.prid.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.prid.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.prid.serviceName }} 
         component: {{ .Values.component }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.prid.serviceName }} 
         image: {{ .Values.services.prid.dockerImage }}

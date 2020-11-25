@@ -1,11 +1,8 @@
-namespace: default
 component: prereg
 part-of: mosip
 activeProfileEnv: mz
-springConfigLabel: master
-configServerUrl: http://config-server/config
-domainName: {{ sandbox_domain_name }}
-internalDomain: {{ clusters.mz.nodeport_node }} 
+springConfigLabel: {{ config_repo.version }} 
+configServerUrl: {{ config_server.internal_url }}
 probe:
   initialDelay: 180  # Seconds
   period: 30 # Seconds
@@ -14,35 +11,29 @@ ingress:
 artifactoryUrl: {{ artifactory_url }} 
 imagePullPolicy: Always 
 isGlowroot: {{ is_glowroot }}
+exportLogs: enabled  # Let filebeat export the logs
+
+dockerHub:
+  private: {{ docker_hub.private }}  
+  keyname: {{ docker_hub.keyname }}
+
 services:
-  login:
-    serviceName: {{ versions.services.prereg.login.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.login.values()[0] }}
+  application:
+    serviceName: {{ versions.services.prereg.application.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.application.values()[0] }}
     containerPort: 9090
     servicePort: 80
-    ingressPath: /preregistration/v1/login
-    healthUrl: /preregistration/v1/login/actuator/health
+    ingressPath: /preregistration/v1
+    healthUrl: /preregistration/v1/actuator/health
+    podconfig: {{ podconfig.prereg.application | to_yaml }}
   batch:
     serviceName: {{ versions.services.prereg.batch.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.batch.values()[0] }}
     containerPort: 9097
     servicePort: 80
     ingressPath: ""
-    #healthUrl: /preregistration/v1/actuator/health # TODO: No actuator?  
-  document:
-    serviceName: {{ versions.services.prereg.document.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.document.values()[0] }}
-    containerPort: 9093
-    servicePort: 80
-    ingressPath: /preregistration/v1/documents
-    healthUrl: /preregistration/v1/actuator/health # TODO: How come this url does not have 'documents' in it
-  transliteration:
-    serviceName: {{ versions.services.prereg.transliteration.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.transliteration.values()[0] }}
-    containerPort: 9098
-    servicePort: 80
-    ingressPath: /preregistration/v1/transliteration
-    healthUrl: /preregistration/v1/transliteration/actuator/health
+    #healthUrl: /preregistration/v1/actuator/health # TODO: No actuator?
+    podconfig: {{ podconfig.prereg.batch | to_yaml }}
   booking:
     serviceName: {{ versions.services.prereg.booking.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.booking.values()[0] }}
@@ -50,13 +41,7 @@ services:
     servicePort: 80
     ingressPath: /preregistration/v1/appointment
     healthUrl: /preregistration/v1/actuator/health
-  qrcode:
-    serviceName: {{ versions.services.prereg.qrcode.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.qrcode.values()[0] }}
-    containerPort: 9091
-    servicePort: 80
-    ingressPath: /preregistration/v1/qrCode
-    healthUrl: /preregistration/v1/qrCode/actuator/health
+    podconfig: {{ podconfig.prereg.booking | to_yaml }}
   datasync:
     serviceName: {{ versions.services.prereg.datasync.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.datasync.values()[0] }}
@@ -64,20 +49,7 @@ services:
     servicePort: 80
     ingressPath: /preregistration/v1/sync
     healthUrl: /preregistration/v1/actuator/health
-  demographic:
-    serviceName: {{ versions.services.prereg.demographic.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.demographic.values()[0] }}
-    containerPort: 9092
-    servicePort: 80
-    ingressPath: /preregistration/v1/applications
-    healthUrl: /preregistration/v1/actuator/health
-  notification:
-    serviceName: {{ versions.services.prereg.notification.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.notification.values()[0] }}
-    containerPort: 9099
-    servicePort: 80
-    ingressPath: /preregistration/v1/notification
-    healthUrl: /preregistration/v1/notification/actuator/health
+    podconfig: {{ podconfig.prereg.datasync | to_yaml }}
   captcha:
     serviceName: {{ versions.services.prereg.captcha.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.captcha.values()[0] }}
@@ -85,6 +57,7 @@ services:
     servicePort: 80
     ingressPath: /preregistration/v1/captcha
     healthUrl: /preregistration/v1/captcha/actuator/health
+    podconfig: {{ podconfig.prereg.captcha | to_yaml }}
   ui:
     serviceName: {{ versions.services.prereg.ui.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.ui.values()[0] }}
@@ -93,4 +66,5 @@ services:
     configName: prereg-ui-config # ConfigMap name
     apiHost: https://{{ sandbox_domain_name }}/
     ingressPath: /pre-registration-ui
+    podconfig: {{ podconfig.prereg.ui | to_yaml }}
     
