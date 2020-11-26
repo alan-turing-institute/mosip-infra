@@ -20,10 +20,16 @@ chmod u+x ./automated_MOSIP_deployment.sh
 ```
 Here you might need to run `terraform apply` again, if you get an ERROR 404.
 
-Once successful:
+Once successful, the following script will attempt to install MOSIP on the console machine. NOTE that it uses azure-cli to run the commands and the error messages are hard to read. You may want to do this bit manually.
 ```
 ./automated_MOSIP_installation.sh
 ```
+
+The manual method. `ssh sandbox.uksouth.cloudapp.azure.com`, the copy and paste the bash commands in `install_MOSIP_vm.sh`. 
+
+NOTE: The Vault password is 'foo'.
+
+NOTE: currently stuck on an nginx error.
 
 There are also scripts to start, stop, and deallocate azure vms.
 NOTE - Deallocate instead of stop to avoid billing.
