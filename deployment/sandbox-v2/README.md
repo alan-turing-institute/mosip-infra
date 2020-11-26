@@ -25,7 +25,7 @@ Once successful, the following script will attempt to install MOSIP on the conso
 ./automated_MOSIP_installation.sh
 ```
 
-The manual method. `ssh sandbox.uksouth.cloudapp.azure.com`, the copy and paste the bash commands in `install_MOSIP_vm.sh`. 
+The manual method. Run `edit_MOSIP_files.sh` on the local to update `hosts.ini` to the current deployment. Then install on the console: `ssh sandbox.uksouth.cloudapp.azure.com`, the copy and paste the bash commands in `install_MOSIP_vm.sh`. 
 
 NOTE: The Vault password is 'foo'.
 
