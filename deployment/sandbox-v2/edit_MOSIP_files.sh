@@ -47,5 +47,7 @@ ip=$(az vm show -g mosip-sandbox-test -n $vm --query privateIps -d --out tsv)
 sed -i "" "24s/$vm.sb/$vm/" ./hosts.ini
 sed -i "" "24s/10.20.20.200/$ip/" ./hosts.ini
 
-git commit -a -m "edit mosip ips"
+git add hosts.ini
+git add ./group_vars/all.yml
+git commit -m "edit mosip ips"
 git push
