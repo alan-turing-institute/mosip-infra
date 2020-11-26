@@ -4,13 +4,32 @@
 
 The sandbox runs on a multi Virtual Machine (VM) setup, and may be used for development and testing.
 
+---
+
 **REG TEAM:**
 This branch adjusts the documentation for the REG team to quickly deploy the infrastructure on macOS. 
-Quick deployment:
-- Make sure the hardcoded variables in `deployment/sandbox-v2/turing_azure_edits.sh` are correct. The dns name and the resource group should NOT EXIST before deployment.
-- Run `deployment/sandbox-v2/automated_MOSIP_deployment.sh` from your home directory. 
-- The last command of `deployment/sandbox-v2/automated_MOSIP_deployment.sh` is `terraform apply`. You'll likely encounter a [well known](https://github.com/terraform-providers/terraform-provider-azurerm/issues/532) Error:404 'Resource not found'. Re-run `terraform apply` in the directory `mosip-infra/deployment/sandbox-v2/terraform/azure` and it should work the second time.
-- Next, install mosip by running `deployment/sandbox-v2/install_MOSIP_vm.sh` (NOT WRITTEN YET)
+Quick deployment with domain name 'sandbox', user 'mosipuser', and password 'roli7219@ati'.
+
+```
+git clone https://github.com/alan-turing-institute/mosip-infra
+cd mosip-infra
+checkout simple-mac-deploy-1.1.2
+cd deployment/sandbox-v2
+chmod u+x ./automated_MOSIP_deployment.sh
+./automated_MOSIP_deployment.sh
+```
+Here you might need to run `terraform apply` again, if you get an ERROR 404.
+
+Once successful:
+```
+./automated_MOSIP_installation.sh
+```
+
+There are also scripts to start, stop, and deallocate azure vms.
+NOTE - Deallocate instead of stop to avoid billing.
+
+---
+
 
 
 _**WARNING**: The sandbox is not intented to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data._

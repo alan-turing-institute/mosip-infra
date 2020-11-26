@@ -21,6 +21,7 @@ chmod u+x ./install_MOSIP_vm.sh
 chmod u+x ./run_on_vm.sh
 chmod u+x ./startup_vms.sh
 chmod u+x ./stop_vms.sh
+chmod u+x ./deallocate_vms.sh
 
 echo "STEP 3: AZURE TERRAFORM DEPLOYMENT"
 az login
