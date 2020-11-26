@@ -7,7 +7,7 @@ brew install terraform
 brew install azure-cli
 #hard-coded edits
 echo "STEP 2: CORRECTING HARDCODED EDITS"
-cd ~
+cd ~/
 git clone https://github.com/alan-turing-institute/mosip-infra/
 cd mosip-infra
 git checkout simple-mac-deploy-1.1.2

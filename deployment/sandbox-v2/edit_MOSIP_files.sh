@@ -1,6 +1,8 @@
 #!/bin/sh
 echo "STEP 4: EDIT group_vars/all.yml"
 
+cd ~/mosip-infra/deployment/sandbox-v2
+
 sed -i "" "15s/minibox.mosip.net/$dns/" ./group_vars/all.yml
 echo "updated sandbox domain name to $dns"
 
