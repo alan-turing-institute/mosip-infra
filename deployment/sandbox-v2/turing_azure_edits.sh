@@ -32,8 +32,8 @@ echo "updated resource group to $rgroup"
 region="UK South"
 regionlc=${region// /} #remove whitespace
 regionlc=$(echo "$regionlc" | tr A-Z a-z) #convert to lowercase
-LC_CTYPE=C find ./ -type f -exec sed -i "" "s/South India/$region/g" {} +
-LC_CTYPE=C find ./ -type f -exec sed -i "" "s/southindia/$regionlc/g" {} +
+LC_CTYPE=C find ./ -type f -exec sed -i "" "s/UK South/$region/g" {} +
+LC_CTYPE=C find ./ -type f -exec sed -i "" "s/uksouth/$regionlc/g" {} +
 
 echo "Changed all hardcoded title case and lowercase region entries to $region or $regionlc"
 
