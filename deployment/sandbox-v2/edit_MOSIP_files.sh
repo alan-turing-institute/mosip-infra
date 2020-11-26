@@ -15,7 +15,7 @@ az account set -s a8604fcd-7cc8-4801-a975-a4b777a179a4
 vm="console"
 ip=$(az vm show -g mosip-sandbox-test -n $vm --query privateIps -d --out tsv)
 sed -i "" "4s/$vm.sb/$vm/" ./hosts.ini
-sed -i "" "4s/10.20.20.10/$ip/" ./hosts.ini
+sed -i "" "4s/[0-9]*[[punct]][0-9]*[[punct]][0-9]*[[punct]][0-9]*/$ip/" ./hosts.ini
 
 vm="mzmaster"
 ip=$(az vm show -g mosip-sandbox-test -n $vm --query privateIps -d --out tsv)
