@@ -3,6 +3,7 @@ echo "STEP 4: EDIT group_vars/all.yml"
 
 cd ~/mosip-infra/deployment/sandbox-v2
 
+dns="sandbox.uksouth.cloudapp.azure.com"
 sed -i "" "15s/minibox.mosip.net/$dns/" ./group_vars/all.yml
 echo "updated sandbox domain name to $dns"
 
