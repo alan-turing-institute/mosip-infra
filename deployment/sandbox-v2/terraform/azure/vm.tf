@@ -1,16 +1,17 @@
 resource "azurerm_linux_virtual_machine" "myterraformvm" {
-  name                = "${var.hostname[0]}"
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  name                = var.hostname[0]
+  location            = azurerm_resource_group.myterraformgroup.location 
+  resource_group_name = azurerm_resource_group.myterraformgroup.name
 
   network_interface_ids = [azurerm_network_interface.myterraformnic.id]
 
-  size           = "${var.vm_size[0]}"
-  computer_name  = "${var.hostname[0]}"
+  size           = var.vm_size[0]
+  computer_name  = var.hostname[0]
   admin_username = "${var.admin_username}"
   admin_password = "${var.admin_password}"
   disable_password_authentication = false
   
+
   provisioner "file" {
     source      = "./console.sh"
     destination = "/tmp/console.sh"
@@ -64,8 +65,8 @@ resource "azurerm_linux_virtual_machine" "myterraformvm" {
 
 resource "azurerm_linux_virtual_machine" "myterraformvm1" {
   name                = "${var.hostname[1]}"
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  location            = azurerm_resource_group.myterraformgroup.location 
+  resource_group_name = azurerm_resource_group.myterraformgroup.name
 
   network_interface_ids = [azurerm_network_interface.myterraformnic1.id]
 
@@ -103,8 +104,8 @@ resource "azurerm_linux_virtual_machine" "myterraformvm1" {
 
 resource "azurerm_linux_virtual_machine" "myterraformvm2" {
   name                = "${var.hostname[2]}"
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  location            = azurerm_resource_group.myterraformgroup.location 
+  resource_group_name = azurerm_resource_group.myterraformgroup.name
 
   network_interface_ids = [azurerm_network_interface.myterraformnic2.id]
 
@@ -142,7 +143,7 @@ resource "azurerm_linux_virtual_machine" "myterraformvm2" {
 #---
 resource "azurerm_linux_virtual_machine" "myterraformvm3" {
   name                = "${var.hostname[6]}"
-  location            = var.location
+  location            = azurerm_resource_group.myterraformgroup.location 
   resource_group_name = azurerm_resource_group.myterraformgroup.name
 
   network_interface_ids = [azurerm_network_interface.myterraformnic3.id]
@@ -183,8 +184,8 @@ resource "azurerm_linux_virtual_machine" "myterraformvm3" {
 
 resource "azurerm_linux_virtual_machine" "myterraformvm4" {
   name                = "${var.hostname[3]}"
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  location            = azurerm_resource_group.myterraformgroup.location 
+  resource_group_name = azurerm_resource_group.myterraformgroup.name
 
   network_interface_ids = [azurerm_network_interface.myterraformnic4.id]
 
@@ -222,8 +223,8 @@ resource "azurerm_linux_virtual_machine" "myterraformvm4" {
 
 resource "azurerm_linux_virtual_machine" "myterraformvm5" {
   name                = "${var.hostname[4]}"
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  location            = azurerm_resource_group.myterraformgroup.location 
+  resource_group_name = azurerm_resource_group.myterraformgroup.name
 
   network_interface_ids = [azurerm_network_interface.myterraformnic5.id]
 
@@ -260,8 +261,8 @@ tags = {
 
 resource "azurerm_linux_virtual_machine" "myterraformvm6" {
   name                = "${var.hostname[5]}"
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  location            = azurerm_resource_group.myterraformgroup.location 
+  resource_group_name = azurerm_resource_group.myterraformgroup.name
 
   network_interface_ids = [azurerm_network_interface.myterraformnic6.id]
 
