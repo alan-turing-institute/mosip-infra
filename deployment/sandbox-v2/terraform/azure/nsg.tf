@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "example" {
   name                = "${var.prefix}-NSG-ENV"
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  location            = azurerm_resource_group.myterraformgroup.location
+  resource_group_name = azurerm_resource_group.myterraformgroup.name
 }
 
 resource "azurerm_network_security_rule" "nsg" {
@@ -14,7 +14,7 @@ resource "azurerm_network_security_rule" "nsg" {
   destination_port_range      = "22"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
-  resource_group_name         = var.resource_group_name
+  resource_group_name         = azurerm_resource_group.myterraformgroup.name
   network_security_group_name = azurerm_network_security_group.example.name
 }
 
@@ -28,7 +28,7 @@ resource "azurerm_network_security_rule" "nsg1" {
   destination_port_range      = "443"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
-  resource_group_name         = var.resource_group_name
+  resource_group_name         = azurerm_resource_group.myterraformgroup.name
   network_security_group_name = azurerm_network_security_group.example.name
 }
 
@@ -42,7 +42,7 @@ resource "azurerm_network_security_rule" "nsg2" {
   destination_port_range      = "30090"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
-  resource_group_name         = var.resource_group_name
+  resource_group_name         = azurerm_resource_group.myterraformgroup.name
   network_security_group_name = azurerm_network_security_group.example.name
 }
 
@@ -56,7 +56,7 @@ resource "azurerm_network_security_rule" "nsg3" {
   destination_port_range      = "80"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
-  resource_group_name         = var.resource_group_name
+  resource_group_name         = azurerm_resource_group.myterraformgroup.name
   network_security_group_name = azurerm_network_security_group.example.name
 }
 
@@ -70,7 +70,7 @@ resource "azurerm_network_security_rule" "nsg4" {
   destination_port_range      = "30616"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
-  resource_group_name         = var.resource_group_name
+  resource_group_name         = azurerm_resource_group.myterraformgroup.name
   network_security_group_name = azurerm_network_security_group.example.name
 }
 
@@ -84,6 +84,6 @@ resource "azurerm_network_security_rule" "nsg5" {
   destination_port_range      = "53"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
-  resource_group_name         = var.resource_group_name
+  resource_group_name         = azurerm_resource_group.myterraformgroup.name
   network_security_group_name = azurerm_network_security_group.example.name
 }
