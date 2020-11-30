@@ -60,3 +60,30 @@ resource "azurerm_network_security_rule" "nsg3" {
   network_security_group_name = azurerm_network_security_group.example.name
 }
 
+resource "azurerm_network_security_rule" "nsg4" {
+  name                        = "Port-30616"
+  priority                    = 104
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "30616"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.example.name
+}
+
+resource "azurerm_network_security_rule" "nsg5" {
+  name                        = "Port-53"
+  priority                    = 105
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "udp"
+  source_port_range           = "*"
+  destination_port_range      = "53"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.example.name
+}

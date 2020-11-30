@@ -5,7 +5,7 @@ variable "subscription_id" {
 #if want to add new vm, add here as list and pass this parameter in to vm.tf config file.
 variable "hostname" {
   type    = list(string)
-  default = ["console", "mzmaster", "dmzmaster", "mzworker0", "mzworker1", "mzworker2", "dmzworker0"]
+  default = ["console.sb", "mzmaster.sb", "dmzmaster.sb", "mzworker0.sb", "mzworker1.sb", "mzworker2.sb", "dmzworker0.sb"]
 }
 #Change the domain name label according to our env need.
 variable "domain_name_label" {

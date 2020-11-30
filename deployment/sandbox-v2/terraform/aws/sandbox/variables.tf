@@ -6,11 +6,11 @@ variable "region" {
   default = "ap-south-1"
 }
 
-variable "vpc_cidr" {
+variable "vpc_cidr" { #azure vnet.tf
   default  = "10.20.0.0/16"
 }
 
-variable "private_subnet" {
+variable "private_subnet" { #azure: subnet.tf
   default = "10.20.20.0/24"
 }
 

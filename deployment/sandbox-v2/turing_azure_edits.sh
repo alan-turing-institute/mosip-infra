@@ -38,6 +38,6 @@ LC_CTYPE=C find ./ -type f -exec sed -i "" "s/southindia/$regionlc/g" {} +
 echo "Changed all hardcoded title case and lowercase region entries to $region or $regionlc"
 
 #STEP 3 -delete unwanted file extentions from everything. NOTE will have to reset repo if want to deploy aws.
-LC_CTYPE=C find ./ -type f -exec sed -i "" "s///g" {} +
+#LC_CTYPE=C find ./ -type f -exec sed -i "" "s///g" {} +
 
-echo "deleted unwanted file extensions"
+#echo "deleted unwanted file extensions"
