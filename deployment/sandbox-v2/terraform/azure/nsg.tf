@@ -87,3 +87,18 @@ resource "azurerm_network_security_rule" "nsg5" {
   resource_group_name         = azurerm_resource_group.myterraformgroup.name
   network_security_group_name = azurerm_network_security_group.example.name
 }
+
+# The azure implementation allows all ports within the virtual private network.
+resource "azurerm_network_security_rule" "nsg6" {
+  name                        = "Ports-cidr"
+  priority                    = 106
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "tcp"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "10.20.0.0/16"
+  destination_address_prefix  = "10.20.0.0/16"
+  resource_group_name         = azurerm_resource_group.myterraformgroup.name
+  network_security_group_name = azurerm_network_security_group.example.name
+}
