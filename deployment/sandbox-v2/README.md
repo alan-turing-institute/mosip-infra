@@ -6,33 +6,31 @@ The sandbox runs on a multi Virtual Machine (VM) setup, and may be used for deve
 
 ---
 
-**REG TEAM:**
-This branch adjusts the documentation for the REG team to quickly deploy the infrastructure on macOS. 
-Quick deployment with domain name 'sandbox', user 'mosipuser', and password 'roli7219@ati'.
+### REG TEAM
+#### Deploy infrastructre from scratch
+This branch adjusts the documentation for the REG team to quickly deploy the infrastructure on macOS. We have hardcoded IPs and resource names to make deployment easier. For quick deployment with domain name 'sandbox', user 'mosipuser', and password 'roli7219@ati':
 
 ```
 git clone https://github.com/alan-turing-institute/mosip-infra
 cd mosip-infra
 checkout simple-mac-deploy-1.1.2
-cd deployment/sandbox-v2
-chmod u+x ./automated_MOSIP_deployment.sh
-./automated_MOSIP_deployment.sh
+cd deployment/sandbox-v2/terraform/azure
+terraform init
+terraform apply
 ```
 Here you might need to run `terraform apply` again, if you get an ERROR 404.
 
-Once successful, the following script will attempt to install MOSIP on the console machine. NOTE that it uses azure-cli to run the commands and the error messages are hard to read. You may want to do this bit manually.
-```
-./automated_MOSIP_installation.sh
-```
-
-The manual method. Run `edit_MOSIP_files.sh` on the local to update `hosts.ini` to the current deployment. Then install on the console: `ssh sandbox.uksouth.cloudapp.azure.com`, the copy and paste the bash commands in `install_MOSIP_vm.sh`. 
+To install MOSIP onto the console: `ssh sandbox.uksouth.cloudapp.azure.com`, the copy and paste the bash commands in `install_MOSIP_vm.sh`. 
 
 NOTE: The Vault password is 'foo'.
 
-NOTE: currently stuck on an nginx error.
+### Redeploying infrastracture.
+If you want to freshly deploy the infrastructure you'll need to delete the resource group `mosip-sandbox-test` through the azure portal. Then delete the terraform state data in the existing `mosip-infra` clone, found in `terraform/azure/.terraform`, and also `terraform/azure/terraform.tfstate`. 
 
-There are also scripts to start, stop, and deallocate azure vms.
-NOTE - Deallocate instead of stop to avoid billing.
+You'll also need to delete the `sandbox.uksouth.cloudapp.azure.com` entry in the local known hosts file: `nano /Users/<usr>/.ssh/known_hosts`. After these steps you simply do `terraform init` then `terraform apply`. 
+
+### Start and deallocate azure vms
+From your local, run `mosip-infra/deployment/sandbox-v2/startup_vms.sh` to startup existing resources. At the end of the session run `mosip-infra/deployment/sandbox-v2/deallocate_vms.sh` to deallocate vms and avoid billing.
 
 ---
 
