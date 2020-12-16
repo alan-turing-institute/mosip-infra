@@ -24,6 +24,11 @@ To install MOSIP onto the console: `ssh sandbox.uksouth.cloudapp.azure.com`, the
 
 NOTE: The Vault password is 'foo'.
 
+### Redeploying infrastracture.
+If you want to freshly deploy the infrastructure you'll need to delete the resource group `mosip-sandbox-test` through the azure portal. Then delete the terraform state data in the existing `mosip-infra` clone, found in `terraform/azure/.terraform`, and also `terraform/azure/terraform.tfstate`. 
+
+You'll also need to delete the `sandbox.uksouth.cloudapp.azure.com` entry in the local known hosts file: `nano /Users/<usr>/.ssh/known_hosts`. After these steps you simply do `terraform init` then `terraform apply`. 
+
 ### Start and deallocate azure vms
 From your local, run `mosip-infra/deployment/sandbox-v2/startup_vms.sh` to startup existing resources. At the end of the session run `mosip-infra/deployment/sandbox-v2/deallocate_vms.sh` to deallocate vms and avoid billing.
 
