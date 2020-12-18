@@ -12,7 +12,7 @@ artifactory_url: http://artifactory-service/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
-sandbox_domain_name: sandbox.uksouth.cloudapp.azure.com
+sandbox_domain_name: mosip.uksouth.cloudapp.azure.com
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'
   ssl:
