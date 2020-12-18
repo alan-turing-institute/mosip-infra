@@ -9,7 +9,7 @@ variable "hostname" {
 }
 #Change the domain name label according to our env need.
 variable "domain_name_label" {
-  default = "sandbox"
+  default = "mosip"
 }
 
 variable "admin_username" {
@@ -18,6 +18,10 @@ variable "admin_username" {
 
 variable "admin_password" {
   default = "roli7219@ati"
+}
+
+variable "vpc_cidr" { #azure vnet.tf
+  default  = "10.20.0.0/16"
 }
 
 #This prefix is using as parameter in resources (vnet,subnet,nsg)
