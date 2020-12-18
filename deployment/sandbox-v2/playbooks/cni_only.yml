@@ -1,0 +1,11 @@
+
+#  cni
+- hosts: '{{master}}'  # Master 
+  gather_facts: yes
+  vars_files: '{{install_root}}/group_vars/k8s.yml'
+  become: yes
+  roles:
+    - { role: k8scluster/cni, tags: cni }
+    
+
+

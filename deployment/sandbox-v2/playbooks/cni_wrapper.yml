@@ -1,0 +1,13 @@
+
+#  cni
+- import_playbook: cni_only.yml
+  vars:
+    cluster: mzmaster mzworkers
+    master: mzmaster.sb
+    workers: mzworkers
+    cluster_name: mzcluster  # Any string
+    cluster_master: mzmaster.sb  # Host name of master machine. e.g: mzmaster.sb
+    console_kubeadmin_config_path: '{{clusters.mz.kube_config}}'
+    
+
+
