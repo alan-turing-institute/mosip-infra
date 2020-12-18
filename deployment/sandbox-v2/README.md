@@ -161,7 +161,7 @@ ssl:
 ```
 
 ### Network interface
-If your cluster machines use network interface other than "eth0", update it in `group_vars/mzcluster.yml` and `group_vars/dmzcluster.yml`:
+If your cluster machines use network interface other than "eth0", update it in `group_vars/k8s.yml`.
 ```
 network_interface: "eth0"
 ```
