@@ -23,3 +23,5 @@ The sandbox installs with default configuration.  If you would like to configure
 * [Real HSM](hsm.md)
 * [Anti-Virus Scanner](av.md)
 * [BioSDK](biosdk.md)
+* [External Database](db.md)
+* [Print Service](print.md)

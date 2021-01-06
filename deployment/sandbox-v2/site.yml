@@ -22,7 +22,7 @@
 - import_playbook: playbooks/mzclamav.yml  # Each zone has it's own clamav
 - import_playbook: playbooks/dmzclamav.yml
 - import_playbook: playbooks/activemq.yml
-- import_playbook: playbooks/mock-biosdk.yml
+#- import_playbook: playbooks/mock-biosdk.yml    #TODO
 - import_playbook: playbooks/minio.yml
 - import_playbook: playbooks/artifactory.yml
 # MOSIP modules
@@ -31,6 +31,7 @@
 - import_playbook: playbooks/packetmanager.yml
 - import_playbook: playbooks/datashare.yml
 - import_playbook: playbooks/prereg.yml
+- import_playbook: playbooks/websub.yml
 - import_playbook: playbooks/regproc.yml
 - import_playbook: playbooks/ida.yml
 - import_playbook: playbooks/idrepo.yml
@@ -38,6 +39,6 @@
 - import_playbook: playbooks/resident.yml
 - import_playbook: playbooks/admin.yml
 - import_playbook: playbooks/print.yml
-#- import_playbook: playbooks/mockabis.yml
+- import_playbook: playbooks/mockabis.yml
 # Regclient downloader
 - import_playbook: playbooks/reg-client-downloader.yml
