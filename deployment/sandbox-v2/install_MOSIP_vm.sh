@@ -4,7 +4,7 @@
 cd ~/
 git clone https://github.com/alan-turing-institute/mosip-infra
 cd mosip-infra
-git checkout simple-mac-deploy-1.1.2
+git checkout 1.1.3
 cd deployment/sandbox-v2
 ./keys.sh hosts.ini
 ./preinstall.sh
