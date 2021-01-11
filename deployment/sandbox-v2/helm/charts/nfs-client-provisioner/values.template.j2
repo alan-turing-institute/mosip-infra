@@ -13,7 +13,12 @@ image:
 nfs:
   server: '{{nfs.server}}'
   path: '{{nfs.folder}}' 
-  mountOptions:
+mountOptions:
+    - vers=3
+    - sec=sys
+    - proto=tcp
+    - actimeo=30
+  #see https://github.com/andyzhangx/demo/blob/master/pv/pv-nfs-mountoptions.yaml
 
 # For creating the StorageClass automatically:
 storageClass:
