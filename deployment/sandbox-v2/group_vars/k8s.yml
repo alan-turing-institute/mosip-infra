@@ -8,7 +8,7 @@
 #   console_kubeadmin_config_path: '{{clusters.mz.kube_config}}'  # e.g
 
 # Kubernetes
-kube_version: v1.20.0 #updated from v1.19.0 to avoid version conflict with kubelet
+kube_version: v1.19.0 #updated from v1.19.0 to avoid version conflict with kubelet
 token: b0f7b8.8d1767876297d85c
 
 # 1.8.x feature: --feature-gates SelfHosting=true
