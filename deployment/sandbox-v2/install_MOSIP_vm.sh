@@ -9,4 +9,5 @@ cd deployment/sandbox-v2
 ./keys.sh hosts.ini
 ./preinstall.sh
 source ~/.bashrc
-an site.yml
+./individual_playbooks.sh
+#an site.yml
