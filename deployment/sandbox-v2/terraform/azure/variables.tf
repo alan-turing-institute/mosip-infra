@@ -9,7 +9,7 @@ variable "hostname" {
 }
 #Change the domain name label according to our env need.
 variable "domain_name_label" {
-  default = "mosip"
+  default = "sandboxv2"
 }
 
 variable "admin_username" {
