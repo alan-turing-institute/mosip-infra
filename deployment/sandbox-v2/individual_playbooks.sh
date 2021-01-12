@@ -2,7 +2,7 @@ ansible-playbook -i hosts.ini --vault-password-file ./vault_default.txt -e @secr
 echo "********** FINISHED CONSOLE 1/33"
 ansible-playbook -i hosts.ini --vault-password-file ./vault_default.txt -e @secrets.yml playbooks/coredns.yml
 echo "********** FINISHED COREDNS 2/33"
-ansible-playbook -i hosts.ini --vault-password-file ./vault_default.txt -e @secrets.yml palybooks/nginx.yml
+ansible-playbook -i hosts.ini --vault-password-file ./vault_default.txt -e @secrets.yml playbooks/nginx.yml
 echo "********** FINISHED NGINX 3/33"
 ansible-playbook -i hosts.ini --vault-password-file ./vault_default.txt -e @secrets.yml playbooks/nfs.yml
 echo "********** FINISHED NFS 4/33"
