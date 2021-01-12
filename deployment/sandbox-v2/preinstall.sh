@@ -15,4 +15,6 @@ echo "alias helm1='helm --kubeconfig $HOME/.kube/mzcluster.config'" >> $HOME/.ba
 echo "alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'" >> $HOME/.bashrc
 echo "alias helmm='helm --kubeconfig $HOME/.kube/mzcluster.config -n monitoring'" >> $HOME/.bashrc
 echo "alias kcm='kubectl -n monitoring --kubeconfig $HOME/.kube/mzcluster.config'" >> $HOME/.bashrc
+
 echo "alias anskip='ansible-playbook -i hosts.ini --vault-password-file ./vault_default.txt -e @secrets.yml'" >> $HOME/.bashrc
+chmod u+x ./individual_playbooks.sh
