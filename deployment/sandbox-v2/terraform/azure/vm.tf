@@ -37,6 +37,7 @@ resource "azurerm_linux_virtual_machine" "console" {
     }
   }
 
+# changed 14/01/21 by CDM. This all gets called in ./preinstall.sh
 #    provisioner "file" {
 #    source      = "./console.sh"
 #    destination = "/tmp/console.sh"
@@ -65,7 +66,10 @@ resource "azurerm_linux_virtual_machine" "console" {
    os_disk {
     name                 = "${var.hostname[0]}-OsDisk"
     caching              = "ReadWrite"
-    storage_account_type = "${var.storage_account_type}"
+    #storage_account_type = "${var.storage_account_type}"
+    #changes 14/01/21
+    storage_account_type = "StandardSSD_LRS"
+    disk_size_gb = 128 #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_virtual_machine#disk_size_gb
    }
 
   source_image_reference {
