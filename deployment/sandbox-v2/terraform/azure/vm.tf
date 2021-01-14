@@ -37,30 +37,30 @@ resource "azurerm_linux_virtual_machine" "console" {
     }
   }
 
-    provisioner "file" {
-    source      = "./console.sh"
-    destination = "/tmp/console.sh"
+#    provisioner "file" {
+#    source      = "./console.sh"
+#    destination = "/tmp/console.sh"
 
-    connection {
-      type     = "ssh"
-      user     = "${var.admin_username}"
-      password = "${var.admin_password}"
-      host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
-    }
-  } 
+ #   connection {
+ #     type     = "ssh"
+ #     user     = "${var.admin_username}"
+ #     password = "${var.admin_password}"
+ #     host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
+ #   }
+ # } 
   
-   provisioner "remote-exec" {
-    inline = [
-       "chmod +x /tmp/console.sh",
-       "/tmp/console.sh args",
-   ]
-    connection {
-      type     = "ssh"
-      user     = "${var.admin_username}"
-      password = "${var.admin_password}"
-      host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
-    }
-  }
+#   provisioner "remote-exec" {
+#    inline = [
+#       "chmod +x /tmp/console.sh",
+#       "/tmp/console.sh args",
+#   ]
+#    connection {
+#      type     = "ssh"
+#      user     = "${var.admin_username}"
+#      password = "${var.admin_password}"
+#      host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
+#    }
+#  }
  
    os_disk {
     name                 = "${var.hostname[0]}-OsDisk"
