@@ -7,9 +7,10 @@ variable "hostname" {
   type    = list(string)
   default = ["console.sb", "mzmaster.sb", "dmzmaster.sb", "mzworker0.sb", "mzworker1.sb", "mzworker2.sb", "dmzworker0.sb"]
 }
+
 #Change the domain name label according to our env need.
 variable "domain_name_label" {
-  default = "sandboxv2"
+  default = "mosipsb"
 }
 
 variable "admin_username" {
@@ -41,7 +42,8 @@ variable "location" {
 
 variable "vm_size" {
   type    = list(string)
-  default = ["Standard_F2s_v2", "Standard_F4s_v2", "Standard_D4_v3"]
+  default = ["Standard_F4s_v2", "Standard_F4s_v2", "Standard_D4_v4"]
+  #updated 14/01/21 to be closer to mosip sandbox readme
 }
 
 variable "storage_account_type" {
