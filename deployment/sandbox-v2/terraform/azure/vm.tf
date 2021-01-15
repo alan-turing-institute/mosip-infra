@@ -12,9 +12,35 @@ resource "azurerm_linux_virtual_machine" "console" {
   disable_password_authentication = false
   
 
-  provisioner "file" {
-    source      = "./console_auth.sh"
-    destination = "/tmp/console_auth.sh"
+  #provisioner "file" {
+  #  source      = "./console_auth.sh"
+  #  destination = "/tmp/console_auth.sh"
+
+  #  connection {
+  #    type     = "ssh"
+  #    user     = "${var.admin_username}"
+  #    password = "${var.admin_password}"
+  #    host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
+  #  }
+  #} 
+  
+  # provisioner "remote-exec" {
+  #  inline = [
+  #     "chmod +x /tmp/console_auth.sh",
+  #     "sudo /tmp/console_auth.sh console.sb",
+  # ]
+  #  connection {
+  #    type     = "ssh"
+  #    user     = "${var.admin_username}"
+  #    password = "${var.admin_password}"
+  #    host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
+  #  }
+  #}
+
+# changed 14/01/21 by CDM. This all gets called in ./preinstall.sh
+    provisioner "file" {
+    source      = "./console.sh"
+    destination = "/tmp/console.sh"
 
     connection {
       type     = "ssh"
@@ -26,8 +52,8 @@ resource "azurerm_linux_virtual_machine" "console" {
   
    provisioner "remote-exec" {
     inline = [
-       "chmod +x /tmp/console_auth.sh",
-       "sudo /tmp/console_auth.sh console.sb",
+       "chmod +x /tmp/console.sh",
+       "/tmp/console.sh args",
    ]
     connection {
       type     = "ssh"
@@ -36,32 +62,6 @@ resource "azurerm_linux_virtual_machine" "console" {
       host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
     }
   }
-
-# changed 14/01/21 by CDM. This all gets called in ./preinstall.sh
-#    provisioner "file" {
-#    source      = "./console.sh"
-#    destination = "/tmp/console.sh"
-
- #   connection {
- #     type     = "ssh"
- #     user     = "${var.admin_username}"
- #     password = "${var.admin_password}"
- #     host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
- #   }
- # } 
-  
-#   provisioner "remote-exec" {
-#    inline = [
-#       "chmod +x /tmp/console.sh",
-#       "/tmp/console.sh args",
-#   ]
-#    connection {
-#      type     = "ssh"
-#      user     = "${var.admin_username}"
-#      password = "${var.admin_password}"
-#      host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
-#    }
-#  }
  
    os_disk {
     name                 = "${var.hostname[0]}-OsDisk"
