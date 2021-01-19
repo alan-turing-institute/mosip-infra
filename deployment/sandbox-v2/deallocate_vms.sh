@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# script to start up vms.
+# script to deallocate vms.
+#az vm deallocate --ids $(az vm list -g <resourcegroupname> --query "[].id" -o tsv)
 az account set -s a8604fcd-7cc8-4801-a975-a4b777a179a4
 az vm deallocate --resource-group mosip-sandbox-test --name console.sb
 echo "console deallocated 1/7"
@@ -16,3 +17,4 @@ az vm deallocate --resource-group mosip-sandbox-test --name dmzmaster.sb
 echo "dmzmaster deallocated 6/7"
 az vm deallocate --resource-group mosip-sandbox-test --name dmzworker0.sb
 echo "dmzworker0 deallocated 7/7"
+
