@@ -17,4 +17,3 @@ az vm deallocate --resource-group mosip-sandbox-test --name dmzmaster.sb
 echo "dmzmaster deallocated 6/7"
 az vm deallocate --resource-group mosip-sandbox-test --name dmzworker0.sb
 echo "dmzworker0 deallocated 7/7"
-
