@@ -128,18 +128,6 @@ resource "azurerm_linux_virtual_machine" "myterraformvm1" {
     environment = "${var.tags}"
   }
   
-  #see https://github.com/kubernetes/minikube/issues/3417. NFS server cannot be found. Add console.sb to hosts file
-  provisioner "remote-exec" {
-    inline = [
-       "sudo echo '10.20.20.10 ${var.hostname[0]}' >> /etc/hosts"
-   ]
-    connection {
-      type     = "ssh"
-      user     = "${var.admin_username}"
-      password = "${var.admin_password}"
-      host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
-    }
-  }
 }
 
 #---
@@ -181,18 +169,6 @@ resource "azurerm_linux_virtual_machine" "myterraformvm2" {
     environment = "${var.tags}"
   }
 
-  #see https://github.com/kubernetes/minikube/issues/3417. NFS server cannot be found. Add console.sb to hosts file
-  provisioner "remote-exec" {
-    inline = [
-       "sudo echo '10.20.20.10 ${var.hostname[0]}' >> /etc/hosts"
-   ]
-    connection {
-      type     = "ssh"
-      user     = "${var.admin_username}"
-      password = "${var.admin_password}"
-      host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
-    }
-  }
 }
 
 #---
@@ -234,18 +210,6 @@ resource "azurerm_linux_virtual_machine" "myterraformvm3" {
     environment = "${var.tags}"
   }
 
-  #see https://github.com/kubernetes/minikube/issues/3417. NFS server cannot be found. Add console.sb to hosts file
-  provisioner "remote-exec" {
-    inline = [
-       "sudo echo '10.20.20.10 ${var.hostname[0]}' >> /etc/hosts"
-   ]
-    connection {
-      type     = "ssh"
-      user     = "${var.admin_username}"
-      password = "${var.admin_password}"
-      host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
-    }
-  }
 }
 
 #---
@@ -284,19 +248,6 @@ resource "azurerm_linux_virtual_machine" "myterraformvm4" {
 
   tags = {
     environment = "${var.tags}"
-  }
-
-  #see https://github.com/kubernetes/minikube/issues/3417. NFS server cannot be found. Add console.sb to hosts file
-  provisioner "remote-exec" {
-    inline = [
-       "sudo echo '10.20.20.10 ${var.hostname[0]}' >> /etc/hosts"
-   ]
-    connection {
-      type     = "ssh"
-      user     = "${var.admin_username}"
-      password = "${var.admin_password}"
-      host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
-    }
   }
 }
 
@@ -337,18 +288,6 @@ tags = {
     environment = "${var.tags}"
   }
 
-  #see https://github.com/kubernetes/minikube/issues/3417. NFS server cannot be found. Add console.sb to hosts file
-  provisioner "remote-exec" {
-    inline = [
-       "sudo echo '10.20.20.10 ${var.hostname[0]}' >> /etc/hosts"
-   ]
-    connection {
-      type     = "ssh"
-      user     = "${var.admin_username}"
-      password = "${var.admin_password}"
-      host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
-    }
-  }
 }
 
 #---
@@ -390,17 +329,4 @@ resource "azurerm_linux_virtual_machine" "myterraformvm6" {
     environment = "${var.tags}"
   }
 
-  #see https://github.com/kubernetes/minikube/issues/3417. NFS server cannot be found. Add console.sb to hosts file
-  provisioner "remote-exec" {
-    inline = [
-       "sudo echo '10.20.20.10 ${var.hostname[0]}' >> /etc/hosts"
-   ]
-    connection {
-      type     = "ssh"
-      user     = "${var.admin_username}"
-      password = "${var.admin_password}"
-      host     = "${var.domain_name_label}.uksouth.cloudapp.azure.com"
-    }
-  }
 }
-
