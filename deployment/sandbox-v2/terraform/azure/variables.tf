@@ -2,11 +2,6 @@
 variable "subscription_id" {
   default = "a8604fcd-7cc8-4801-a975-a4b777a179a4"
 }
-#if want to add new vm, add here as list and pass this parameter in to vm.tf config file.
-variable "hostname" {
-  type    = list(string)
-  default = ["console.sb", "mzmaster.sb", "dmzmaster.sb", "mzworker0.sb", "mzworker1.sb", "mzworker2.sb", "dmzworker0.sb"]
-}
 
 #Change the domain name label according to our env need.
 variable "domain_name_label" {
@@ -37,17 +32,49 @@ variable "resource_group_name" {
 }
 
 variable "location" {
-  default = "UK South"
+  default = "uksouth"
 }
 
 variable "vm_size" {
   type    = list(string)
-  default = ["Standard_F4s_v2", "Standard_F4s_v2", "Standard_D4_v4"]
+  default = ["Standard_F4s_v2", "Standard_D4_v4"] #masters, workers
   #updated 14/01/21 to be closer to mosip sandbox readme
 }
 
 variable "storage_account_type" {
   default = "Standard_LRS"
+}
+
+/* Recommended not to change names */
+variable "console" {
+  default =  {
+    "name" : "console.sb",
+    "private_ip": "10.20.20.10",
+    "disk_size" : 128,
+    "storage" : "StandardSSD_LRS",
+    "size" : "Standard_F4s_V2"
+  }
+}
+
+/* Recommended not to change names */
+#uncomment vm names below to deploy full sandbox.
+variable "kube_names" {
+   type = map(string)
+
+   default = {
+     "mzmaster.sb": "10.20.20.99",
+     "mzworker0.sb": "10.20.20.100",
+     "mzworker1.sb": "10.20.20.101",
+     "mzworker2.sb": "10.20.20.102",
+   #  "mzworker3.sb": "10.20.20.103",
+   #  "mzworker4.sb": "10.20.20.104",
+   #  "mzworker5.sb": "10.20.20.105",
+   #  "mzworker6.sb": "10.20.20.106",
+   #  "mzworker7.sb": "10.20.20.107",
+   #  "mzworker8.sb": "10.20.20.108",
+     "dmzmaster.sb": "10.20.20.199",
+     "dmzworker0.sb": "10.20.20.200"
+   }
 }
 
 
