@@ -25,41 +25,45 @@ Generally, terraform communicates azure portal to create the resources through A
   
 ### Step 3: Edit MOSIP files to allow for Azure Terraform deployment
 
-There are a number of hardcoded variables in the MOSIP repository that need altering to your requirements. The file `mosip-infra/deployment/sandbox-v2/turing_azure_edits.sh`.
+There are a number of hardcoded variables in the MOSIP repository that need altering to your requirements.
 
-The script edits the following: 
+In `variables.tf` you will need to edit:
     - Azure subscription ID.  
     - admin password.  
     - domain name label (Azure DNS name).  
-    - Azure region (in Title Case, e.g. UK South).   
+    - Azure region (in lower case without spaces, e.g. 'uksouth').
+
+Also in `group_vars/all.yml` you will need to edit the domain name label (line 16).
+
+It is recommended to leave hostnames and ip names as is. 
 
 ### Step 4: Run commands to deploy infrastructure.
 
 `$ cd terraform/azure`.
 
- 1.	Once the **Azure CLI** is installed, enter **az login** command will provide a **URl and code** to authenticate with your account.
+ 1.	Once the **Azure CLI** is installed. To find your subscription id enter **az login** command will provide a **URl and code** to authenticate with your account.
 
  ![az-login](https://user-images.githubusercontent.com/58170816/84352663-5e823300-abdb-11ea-857d-239135f1e4ec.png)
 
- 2.	Once you authenticated, it will list all the subscription, which has granted access for your account.
+ 2.	This will list all the subscriptions associated with that account.
 
 ![subscription](https://user-images.githubusercontent.com/58170816/84352764-8bcee100-abdb-11ea-8a4c-9ba67db53443.png)
  
- 3.	After listed the subscription, we can enter **terraform init** command where terraform config modules are present. Which will download **all the latest plugins** for the terraform modules.
+ 3.	After entering the subscription id into `variables.tf`, we can enter **terraform init** command where terraform config modules are present. Which will download **all the latest plugins** for the terraform modules.
 
  ![terraform-init](https://user-images.githubusercontent.com/58170816/84352814-a3a66500-abdb-11ea-8ada-c194a7ed2aa6.png)
 
 
- 4.	Run **terraform plan** command. If details are is successfully listed as below, terraform is able to communicate with Azure portal. Note that there may be a syntax warning that can be safely ignored. 
+ 4.	Run **terraform plan** command. If details are is successfully listed terraform is able to communicate with Azure portal. 
 
  ![terraform-plan](https://user-images.githubusercontent.com/58170816/84352913-d05a7c80-abdb-11ea-8d96-f6b8fe9e97ca.png)
 
- 5. Run **terraform apply** command. If the instrastructre code is tweaked appropriately, `terraform apply` should create a resource group on azure with 30 records. 
+ 5. Run **terraform apply** command. If the instrastructre code is tweaked appropriately, `terraform apply` should create a resource group on azure with 33 records (for the minibox). 
  
  
 **YOU CAN NOW RETURN TO THE MOSIP INSTALLATION INSTRUCTIONS [HERE](https://github.com/alan-turing-institute/mosip-infra/tree/master/deployment/sandbox-v2).**
 
-The below text is additional information that the Turing has left unchanged.
+
 
 ### Azure portal Access
 
