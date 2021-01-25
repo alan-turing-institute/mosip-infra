@@ -8,29 +8,48 @@ The sandbox runs on a multi Virtual Machine (VM) setup, and may be used for deve
 
 ### REG TEAM
 #### Deploy infrastructre from scratch
-This branch adjusts the documentation for the REG team to quickly deploy the infrastructure on macOS. We have hardcoded IPs and resource names to make deployment easier. For quick deployment with domain name 'sandbox', user 'mosipuser', and password 'roli7219@ati':
+This branch contains hardcoded edits to deploy the minibox (3 mzcluster vms instead of 9) with the username 'mosipuser', domain 'mosipsb.uksouth.cloudapp.azure.com', and password 'roli7219@ati'.
 
 ```
 git clone https://github.com/alan-turing-institute/mosip-infra
 cd mosip-infra
-checkout simple-mac-deploy-1.1.2
+git checkout 1.1.3
 cd deployment/sandbox-v2/terraform/azure
 terraform init
 terraform apply
-```
-Here you might need to run `terraform apply` again, if you get an ERROR 404.
 
-To install MOSIP onto the console: `ssh sandbox.uksouth.cloudapp.azure.com`, the copy and paste the bash commands in `install_MOSIP_vm.sh`. 
+# also do the following if you are going to stop and start the cluster 
+chmod u+x ./scripts/hostfiles.sh
+./scripts/hostfiles.sh #adds console.sb private ip to the hosts file on all kubernetes machines so that the nfs server is found on reboot.
+chmod u+x ./scripts/deallocate_vms.sh
+chmod u+x ./scripts/startup_vms.sh
+```
+
+To install MOSIP onto the console: `ssh sandbox.uksouth.cloudapp.azure.com`, the copy and paste the following commands: 
+
+```
+# script to install MOSIP on vm
+cd ~/
+git clone https://github.com/alan-turing-institute/mosip-infra
+cd mosip-infra
+git checkout 1.1.3
+cd deployment/sandbox-v2
+cp $HOME/mosip-infra/deployment/sandbox-v2/utils/tmux.conf $HOME/.tmux.conf
+./keys.sh hosts.ini  #swaps keys with cluster machines
+chmod u+x ./individual_playbooks.sh 
+./individual_playbooks.sh # runs each playbook with progress output and passing the vault password found in `vault_default.txt` (an site.yml is difficult to debug and  stops on an error).
+#an site.yml
+```
 
 NOTE: The Vault password is 'foo'.
 
 ### Redeploying infrastracture.
 If you want to freshly deploy the infrastructure you'll need to delete the resource group `mosip-sandbox-test` through the azure portal. Then delete the terraform state data in the existing `mosip-infra` clone, found in `terraform/azure/.terraform`, and also `terraform/azure/terraform.tfstate`. 
 
-You'll also need to delete the `sandbox.uksouth.cloudapp.azure.com` entry in the local known hosts file: `nano /Users/<usr>/.ssh/known_hosts`. After these steps you simply do `terraform init` then `terraform apply`. 
+You'll also need to delete the `mosipsb.uksouth.cloudapp.azure.com` entry in the local known hosts file: `nano /Users/<usr>/.ssh/known_hosts`. After these steps you simply do `terraform init` then `terraform apply`. 
 
 ### Start and deallocate azure vms
-From your local, run `mosip-infra/deployment/sandbox-v2/startup_vms.sh` to startup existing resources. At the end of the session run `mosip-infra/deployment/sandbox-v2/deallocate_vms.sh` to deallocate vms and avoid billing.
+From your local, run `mosip-infra/deployment/sandbox-v2/startup_vms.sh` to startup existing resources (this file also starts the nginx server on the console and disables swapoff on dmzmaster and mzmaster). At the end of the session run `mosip-infra/deployment/sandbox-v2/deallocate_vms.sh` to deallocate vms and avoid billing.
 
 ---
 

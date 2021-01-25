@@ -76,14 +76,14 @@ livenessProbe:
     path: /healthz
     port: https
     scheme: HTTPS
-  initialDelaySeconds: 20
+  initialDelaySeconds: 300
 
 readinessProbe:
   httpGet:
     path: /healthz
     port: https
     scheme: HTTPS
-  initialDelaySeconds: 20
+  initialDelaySeconds: 300
 
 securityContext:
   allowPrivilegeEscalation: false

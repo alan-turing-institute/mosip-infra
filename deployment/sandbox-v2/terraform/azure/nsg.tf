@@ -1,7 +1,7 @@
-resource "azurerm_network_security_group" "console" {
+resource "azurerm_network_security_group" "console_nsg" {
   name                = "console_security_group"
-  location            = azurerm_resource_group.myterraformgroup.location
-  resource_group_name = azurerm_resource_group.myterraformgroup.name
+  location            = azurerm_resource_group.resource_group.location
+  resource_group_name = azurerm_resource_group.resource_group.name
 
   security_rule {
     name                       = "Port-22"
@@ -109,10 +109,10 @@ resource "azurerm_network_security_group" "console" {
   }
 }
 
-resource "azurerm_network_security_group" "kube" {
+resource "azurerm_network_security_group" "kube_nsg" {
   name                = "kube_security_group"
-  location            = azurerm_resource_group.myterraformgroup.location
-  resource_group_name = azurerm_resource_group.myterraformgroup.name
+  location            = azurerm_resource_group.resource_group.location
+  resource_group_name = azurerm_resource_group.resource_group.name
 
   #for ssh
   security_rule {
