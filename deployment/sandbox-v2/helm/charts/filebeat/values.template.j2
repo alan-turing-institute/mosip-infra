@@ -86,7 +86,7 @@ livenessProbe:
         #!/usr/bin/env bash -e
         curl --fail 127.0.0.1:5066
   failureThreshold: 3
-  initialDelaySeconds: 10
+  initialDelaySeconds: 60
   periodSeconds: 10
   timeoutSeconds: 5
 
@@ -99,7 +99,7 @@ readinessProbe:
         #!/usr/bin/env bash -e
         filebeat test output
   failureThreshold: 3
-  initialDelaySeconds: 10
+  initialDelaySeconds: 300
   periodSeconds: 10
   timeoutSeconds: 5
 
