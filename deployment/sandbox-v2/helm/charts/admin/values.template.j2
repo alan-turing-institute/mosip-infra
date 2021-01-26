@@ -9,7 +9,7 @@ ingress:
    namespace: default
 artifactoryUrl: {{ artifactory_url }} 
 probe:
-  initialDelay: 600  # Seconds
+  initialDelay: 300  # Seconds
   period: 30 # Seconds
 imagePullPolicy: Always
 sitePublicUrl: {{ site.sandbox_public_url }}

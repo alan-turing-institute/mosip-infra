@@ -7,3 +7,7 @@ imagePullPolicy: IfNotPresent
 services:
   clamav:
     podconfig: {{ podconfig.clamav.service | to_yaml }}
+
+probe:
+  initialDelay: 300  # Seconds
+  period: 30 # Seconds

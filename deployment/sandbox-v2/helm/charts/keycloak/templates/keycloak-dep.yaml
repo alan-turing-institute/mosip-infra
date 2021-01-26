@@ -49,7 +49,7 @@ spec:
         readinessProbe:
           tcpSocket:
             port: {{ .Values.containerPort }}  # All defaults used
-          initialDelaySeconds: 600
+          initialDelaySeconds: 300
           periodSeconds: 30
           
 
