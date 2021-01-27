@@ -4,7 +4,7 @@
 #az vm deallocate --ids $(az vm list -g <resourcegroupname> --query "[].id" -o tsv)
 az account set -s a8604fcd-7cc8-4801-a975-a4b777a179a4
 
-rg=mosip-sandbox-test
+rg=mosip-sandbox-perm
 
 for node in console.sb mzmaster.sb mzworker0.sb mzworker1.sb mzworker2.sb dmzmaster.sb dmzworker0.sb
 do

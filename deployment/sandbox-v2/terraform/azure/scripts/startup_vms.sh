@@ -2,7 +2,7 @@
 
 # script to start up vms.
 #az vm start --ids $(az vm list -g <resourcegroupname> --query "[].id" -o tsv)
-rg=mosip-sandbox-test
+rg=mosip-sandbox-perm
 
 az account set -s a8604fcd-7cc8-4801-a975-a4b777a179a4
 echo "Starting console.sb"
@@ -33,7 +33,7 @@ echo "Starting mzworker2.sb"
 az vm start --resource-group $rg --name mzworker2.sb 
 echo "mzworker2.sb started 5/7"
 
-echo "Starting dmzworker.sb"
+echo "Starting dmzmaster.sb"
 az vm start --resource-group $rg --name dmzmaster.sb 
 echo "dmzmaster.sb started 6/7"
 
