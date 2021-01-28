@@ -13,7 +13,7 @@ This branch contains hardcoded edits to deploy the minibox (3 mzcluster vms inst
 ```
 git clone https://github.com/alan-turing-institute/mosip-infra
 cd mosip-infra
-git checkout 1.1.3
+git checkout 1.1.3-temp
 cd deployment/sandbox-v2/terraform/azure
 terraform init
 terraform apply
