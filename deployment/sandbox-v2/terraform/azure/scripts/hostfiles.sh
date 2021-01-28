@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # script to add entry to hostfile
-rg=mosip-sandbox-test
+rg=mosip-sandbox-temp
 
 az account set -s a8604fcd-7cc8-4801-a975-a4b777a179a4
 

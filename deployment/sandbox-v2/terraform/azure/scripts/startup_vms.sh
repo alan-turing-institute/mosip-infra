@@ -2,7 +2,7 @@
 
 # script to start up vms.
 #az vm start --ids $(az vm list -g <resourcegroupname> --query "[].id" -o tsv)
-rg=mosip-sandbox-test
+rg=mosip-sandbox-temp
 
 az account set -s a8604fcd-7cc8-4801-a975-a4b777a179a4
 echo "Starting console.sb"

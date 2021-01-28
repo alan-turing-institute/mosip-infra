@@ -5,7 +5,7 @@ variable "subscription_id" {
 
 #Change the domain name label according to our env need.
 variable "domain_name_label" {
-  default = "mosipsb"
+  default = "mosiptemp"
 }
 
 variable "admin_username" {
@@ -28,7 +28,7 @@ variable "prefix" {
 
 
 variable "resource_group_name" {
-  default = "mosip-sandbox-test"
+  default = "mosip-sandbox-temp"
 }
 
 variable "location" {
