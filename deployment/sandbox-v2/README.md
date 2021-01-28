@@ -32,7 +32,7 @@ To install MOSIP onto the console: `ssh sandbox.uksouth.cloudapp.azure.com`, the
 cd ~/
 git clone https://github.com/alan-turing-institute/mosip-infra
 cd mosip-infra
-git checkout 1.1.3
+git checkout 1.1.3-temp
 cd deployment/sandbox-v2
 cp $HOME/mosip-infra/deployment/sandbox-v2/utils/tmux.conf $HOME/.tmux.conf
 ./keys.sh hosts.ini  #swaps keys with cluster machines
