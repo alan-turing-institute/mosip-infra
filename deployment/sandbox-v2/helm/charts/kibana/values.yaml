@@ -123,7 +123,7 @@ ingress:
 
 readinessProbe:
   failureThreshold: 3
-  initialDelaySeconds: 300
+  initialDelaySeconds: 60
   periodSeconds: 10
   successThreshold: 3
   timeoutSeconds: 5

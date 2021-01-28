@@ -83,7 +83,7 @@ readinessProbe:
     path: /healthz
     port: https
     scheme: HTTPS
-  initialDelaySeconds: 300
+  initialDelaySeconds: 60
 
 securityContext:
   allowPrivilegeEscalation: false

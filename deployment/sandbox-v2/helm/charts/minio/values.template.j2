@@ -201,7 +201,7 @@ livenessProbe:
   successThreshold: 1
   failureThreshold: 1
 readinessProbe:
-  initialDelaySeconds: 300
+  initialDelaySeconds: 60
   periodSeconds: 5
   ## Set this to 1s higher than MINIO_API_READY_DEADLINE
   timeoutSeconds: 6
