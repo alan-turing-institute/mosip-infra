@@ -6,3 +6,4 @@ mosip,jack,hello123,jack@xyz.com,Jack,Smith,REGISTRATION_OFFICER REGISTRATION_SU
 mosip,partnermanager1,mosip,partnermanager1@xyz.com,Parnter,Manager One,PARTNERMANAGER
 mosip,keymaker,mosip,keymaker@xyz.com,Key,Maker,KEY_MAKER
 mosip,misp1,mosip,misp1@xyz.com,Misp,One,MISP
+mosip,turing,turing,turing@turing.ac.uk,tur,ing,GLOBAL_ADMIN REGISTRATION_OFFICER REGISTRATION_SUPERVISOR
