@@ -338,14 +338,14 @@ config_repo:
   # If local_git_repo=true, a copy of git repo at `git_repo_uri` gets created on console machine and 
   # config server points to the same. Any changes done on local repo and will not  get reflected in 
   # the parent git repo. 
-  git_repo_uri: https://github.com/mosip/mosip-config
+  git_repo_uri: https://github.com/alan-turing-institute/mosip-config
   version: 1.1.3
   private: false #  true if repo is private
   gitusername: '' # if private==true set username here and password in secrets as below
   gitpassword: '{{secrets.config_repo.password}}'
   search_folders: sandbox # Subdir in repo containing properties
   local_git_repo:
-    enabled: false
+    enabled: true
     path: '{{nfs.folder}}/mosip-config'
     storage_size: 10Mi
 

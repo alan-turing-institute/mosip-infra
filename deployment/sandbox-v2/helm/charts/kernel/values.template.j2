@@ -52,7 +52,7 @@ services:
     podconfig: {{ podconfig.kernel.prid | to_yaml }}
   sync:
     serviceName: {{ versions.services.kernel.sync.keys()[0] }} 
-    dockerImage: {{ versions.services.kernel.sync.values()[0] }}
+    dockerImage: almontasser/kernel-syncdata-service:1.1.3
     containerPort: 8089
     servicePort: 80
     ingressPath: /v1/syncdata 
