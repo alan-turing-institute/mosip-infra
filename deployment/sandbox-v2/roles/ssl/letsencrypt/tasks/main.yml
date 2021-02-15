@@ -6,28 +6,22 @@
     state: present
   become: yes
 
-# install crypto version, hoping that the certbot installation picks up this dependency.ssh
-- name: Install python3 cryptography in virtual env
-  pip:
-    name: cryptography
-    version: 3.3.2
-    virtualenv_python: python3
-    virtualenv: '{{ansible_env.HOME}}/.venv-py3'
-    state: present
 
-
+#alter below since new cryptography releases have rust dependency that throws an error.
 - name: Install certbot in python3 virtual environment 
   pip:
-    name: certbot
-    version: '{{certbot_version}}' 
+    name: 
+      - cryptography==3.3.2
+      - 'certbot=={{certbot_version}}'
     virtualenv_python: python3
     virtualenv: '{{ansible_env.HOME}}/.venv-py3'
     state: present
 
 - name: Install certbot-nginx
   pip:
-    name: certbot-nginx
-    version: '{{certbot_nginx_version}}' 
+    name: 
+      - cryptography==3.3.2
+      - 'certbot-nginx=={{certbot_nginx_version}}'
     virtualenv: '{{ansible_env.HOME}}/.venv-py3'
     state: present
 
