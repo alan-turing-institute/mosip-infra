@@ -1,5 +1,5 @@
 variable "sandbox_name" { //Change this to your sandbox name.
-  default = "qa"  // This is informational.  A tag will be added with this name.
+  default = "sandbox"  // This is informational.  A tag will be added with this name.
 }
 
 variable "region" {
@@ -16,7 +16,7 @@ variable "private_subnet" { #azure: subnet.tf
 
 /* CentOS 7.8 image from AWS */
 variable "install_image" {
-  default = "ami-0dd861ee19fd50a16"
+  default = "ami-0dd861ee19fd50a16" // see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html, ami's are unique to region. 
 }
 
 /* 4 CPU, 16 GB */
@@ -49,12 +49,12 @@ variable "kube_names" {
      "mzworker0.sb": "10.20.20.100",
      "mzworker1.sb": "10.20.20.101",
      "mzworker2.sb": "10.20.20.102",
-     "mzworker3.sb": "10.20.20.103",
-     "mzworker4.sb": "10.20.20.104",
-     "mzworker5.sb": "10.20.20.105",
-     "mzworker6.sb": "10.20.20.106",
-     "mzworker7.sb": "10.20.20.107",
-     "mzworker8.sb": "10.20.20.108",
+     //"mzworker3.sb": "10.20.20.103",
+     //"mzworker4.sb": "10.20.20.104",
+     //"mzworker5.sb": "10.20.20.105",
+     //"mzworker6.sb": "10.20.20.106",
+     //"mzworker7.sb": "10.20.20.107",
+     //"mzworker8.sb": "10.20.20.108",
      "dmzmaster.sb": "10.20.20.199",
      "dmzworker0.sb": "10.20.20.200"
    }
