@@ -29,3 +29,10 @@
     state: started
     enabled: yes
   register: started_docker
+
+- name: Copy daemon.json to /etc/docker
+  template: src=daemon.json.j2 dest=/etc/docker/daemon.json
+
+- name: Restart docker for daemon.json changes
+  shell: 'systemctl restart docker'
+  become: yes
