@@ -24,6 +24,7 @@ spec:
       labels:
         app: {{ template "nfs-subdir-external-provisioner.name" . }}
         release: {{ .Release.Name }}
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       serviceAccountName: {{ template "nfs-subdir-external-provisioner.serviceAccountName" . }}
       {{- if .Values.nodeSelector }}

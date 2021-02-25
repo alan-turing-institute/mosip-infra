@@ -21,6 +21,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.name }}
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       containers:
       - name: {{ .Values.name }}
@@ -49,7 +50,7 @@ spec:
         readinessProbe:
           tcpSocket:
             port: {{ .Values.containerPort }}  # All defaults used
-          initialDelaySeconds: 300
+          initialDelaySeconds: 60
           periodSeconds: 30
           
 

@@ -17,6 +17,7 @@ spec:
       labels:
         app.kubernetes.io/name: ingress-nginx
         app.kubernetes.io/part-of: ingress-nginx
+        exportLogs: {{ .Values.exportLogs }}
       annotations:
         prometheus.io/port: "10254"
         prometheus.io/scrape: "true"
@@ -29,6 +30,8 @@ spec:
       containers:
         - name: nginx-ingress-controller
           image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.30.0
+          {{ $resources := .Values.podconfig.resources }}
+          {{- include "resourcesDefinition" (dict "res" $resources) | indent 10 }}
           args:
             - /nginx-ingress-controller
             - --configmap=$(POD_NAMESPACE)/nginx-configuration

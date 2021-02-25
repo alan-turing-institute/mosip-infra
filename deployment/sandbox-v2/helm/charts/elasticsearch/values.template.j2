@@ -208,7 +208,7 @@ sysctlVmMaxMapCount: 262144
 
 readinessProbe:
   failureThreshold: 3
-  initialDelaySeconds: 300
+  initialDelaySeconds: 60
   periodSeconds: 10
   successThreshold: 3
   timeoutSeconds: 5
@@ -275,3 +275,5 @@ keystore: []
 # Deprecated
 # please use the above podSecurityContext.fsGroup instead
 fsGroup: ""
+
+exportLogs: enabled  # Let filebeat export the logs
