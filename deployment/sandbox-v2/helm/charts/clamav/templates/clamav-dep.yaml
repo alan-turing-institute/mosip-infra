@@ -32,6 +32,6 @@ spec:
         readinessProbe:
           tcpSocket:
             port: {{  .Values.docker.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+        #  initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+         # periodSeconds: {{ .Values.probe.period }} 
 
