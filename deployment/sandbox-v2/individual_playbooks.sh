@@ -65,7 +65,7 @@ ansible-playbook -i hosts.ini --vault-password-file ./vault_default.txt -e @secr
 echo "********** FINISHED ADMIN 30/33"
 ansible-playbook -i hosts.ini --vault-password-file ./vault_default.txt -e @secrets.yml playbooks/print.yml
 echo "********** FINISHED PRINT 31/33"
-ansible-playbook -i hosts.ini --vault-password-file ./vault_default.txt -e @secrets.yml playbooks/mockabis.yml
+ansible-playbook -i hosts.ini --vault-password-file ./vault_default.txt -e @secrets.yml playbooks/mock-abis.yml
 echo "********** FINISHED MOCKABIS 32/33"
 # Regclient downloader
 ansible-playbook -i hosts.ini --vault-password-file ./vault_default.txt -e @secrets.yml playbooks/reg-client-downloader.yml
