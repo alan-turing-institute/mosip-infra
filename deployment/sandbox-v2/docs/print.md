@@ -1,7 +1,7 @@
 # Integration with external print service
 
 ## Introduction
-MOSIP provides a [reference implementation] of print service that intefaces with the mosip system.  
+MOSIP provides a [reference implementation](https://github.com/mosip/print) of print service that intefaces with the mosip system.  
 
 ## Print process flow
 
@@ -20,9 +20,11 @@ Ensure the following:
 
 1. Print partner created and certs uploaded.
 
-1. The private and certificate of print partner is converted to p12 keystore format.
-
-1. This p12 key is used in your print service (you will need to compile your code).
+1. The private and certificate of print partner is converted to p12 keystore format.  You may use the following command:
+    ```
+    $ $ openssl pkcs12 -export -inkey pvt_key.pem  -in cert.pem  -out key.p12
+    ```
+1. This p12 key and password is used in your print service.
 
 1. Your print service reads the relevant (expected) fields from received credentials.
 
