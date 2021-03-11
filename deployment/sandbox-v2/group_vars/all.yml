@@ -13,7 +13,7 @@ artifactory_url: http://artifactory-service/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
-sandbox_domain_name: sandbox.turing-mosip.net
+sandbox_domain_name: mosip-aks.uksouth.cloudapp.azure.com
 internal_domain_name: '{{ansible_host}}'  # IP address of console
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
@@ -61,7 +61,7 @@ docker:
 
 clusters:
   mz:
-    kube_config:  "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
+    kube_config:  "{{lookup('env', 'HOME') }}/.kube/config" # change both to the same config.
     nodeport_node: '{{groups.mzworkers[0]}}'  # Any node on cluster for nodeport access
     ingress:
       namespace: ingress-nginx
@@ -98,7 +98,7 @@ clusters:
       kibana: 
         url: http://kibana-kibana:5601 
   dmz:
-    kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
+    kube_config:  "{{lookup('env', 'HOME') }}/.kube/config" # change both to the same config.
     nodeport_node: '{{groups.dmzworkers[0]}}'  # Any node on cluster for nodeport access
     ingress:
       namespace: ingress-nginx
